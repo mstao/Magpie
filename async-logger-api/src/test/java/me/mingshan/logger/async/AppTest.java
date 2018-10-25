@@ -1,4 +1,4 @@
-package me.mingshan.logger;
+package me.mingshan.logger.async;
 
 import static org.junit.Assert.assertTrue;
 
