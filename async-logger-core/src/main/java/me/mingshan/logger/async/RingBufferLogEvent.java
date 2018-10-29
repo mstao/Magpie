@@ -3,29 +3,43 @@ package me.mingshan.logger.async;
 import me.mingshan.logger.async.api.LogEvent;
 import me.mingshan.logger.async.api.Message;
 
+import java.util.Objects;
+
 public class RingBufferLogEvent implements LogEvent {
     private long threadId;
     private String threadName;
-    private String loggerName;
     private Message message;
+    private boolean endOfBatch;
 
     @Override
     public Message getMessage() {
-        return null;
+        return this.message;
     }
 
     @Override
     public String getThreadName() {
-        return null;
+        return this.threadName;
     }
 
     @Override
     public long getThreadId() {
-        return 0;
+        return this.threadId;
     }
 
     @Override
     public boolean isEndOfBatch() {
-        return false;
+        return this.isEndOfBatch();
+    }
+
+    public void setValues(Message message, long threadId, String threadName) {
+        this.message = message;
+        this.threadId = threadId;
+        this.threadName = threadName;
+    }
+
+    public void clear() {
+        this.message = null;
+        this.threadName = null;
+        this.threadId = 0L;
     }
 }

@@ -1,10 +1,7 @@
 package me.mingshan.logger.async.api;
 
-public interface Logger<E> {
+import java.util.logging.Level;
 
-    void write(E event);
-
-    void write(E event, boolean endOfBatch);
-
-    void close();
+public interface Logger<E extends LogEvent> {
+    void logMessage(Message message);
 }
