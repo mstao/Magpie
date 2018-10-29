@@ -4,12 +4,3 @@ sudo: false # faster builds
 jdk:
 - oraclejdk11
 - oraclejdk8
-
-cache:
-  directories:
-  - $HOME/.m2
-
-install: true
-
-script:
-- travis_wait 30 ./mvnw clean install -DskipTests=false -Dmaven.javadoc.skip=true
