@@ -16,14 +16,19 @@ package me.mingshan.logger.async;
 import com.lmax.disruptor.*;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
+import me.mingshan.logger.async.common.Constants;
 import me.mingshan.logger.async.util.DisruptorUtil;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * 封装Disruptor，提供常用操作
+ *
+ * @author mingshan
+ */
 public class AsyncLoggerDisruptor {
     private volatile Disruptor<RingBufferLogEvent> disruptor;
-    private boolean isUseThreadLocals = true;
 
     public Disruptor<RingBufferLogEvent> getDisruptor() {
         return disruptor;
@@ -58,10 +63,6 @@ public class AsyncLoggerDisruptor {
 
     public void stop() {
         disruptor.shutdown();
-    }
-
-    public boolean isUseThreadLocals() {
-        return isUseThreadLocals;
     }
 
     public boolean tryPublish(RingBufferLogEventTranslator translator) {

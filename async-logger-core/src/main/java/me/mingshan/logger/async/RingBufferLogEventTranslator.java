@@ -14,9 +14,12 @@
 package me.mingshan.logger.async;
 
 import com.lmax.disruptor.EventTranslator;
-import com.lmax.disruptor.EventTranslatorVararg;
 import me.mingshan.logger.async.api.Message;
 
+/**
+ *
+ * @author
+ */
 public class RingBufferLogEventTranslator implements EventTranslator<RingBufferLogEvent> {
     private Message message;
     private long threadId;
@@ -26,7 +29,6 @@ public class RingBufferLogEventTranslator implements EventTranslator<RingBufferL
     public void translateTo(RingBufferLogEvent event, long sequence) {
         event.setValues(message, threadId, threadName);
     }
-
 
     public void setValues(Message message, long threadId, String threadName) {
         this.message = message;

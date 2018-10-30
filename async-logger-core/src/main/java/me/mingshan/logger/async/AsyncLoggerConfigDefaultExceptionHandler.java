@@ -15,6 +15,11 @@ package me.mingshan.logger.async;
 
 import com.lmax.disruptor.ExceptionHandler;
 
+/**
+ * 异步日志异常处理
+ *
+ * @author mingshan
+ */
 public class AsyncLoggerConfigDefaultExceptionHandler implements ExceptionHandler<RingBufferLogEvent> {
 
     @Override

@@ -16,6 +16,7 @@ package me.mingshan.logger.async;
 import com.lmax.disruptor.EventTranslatorVararg;
 import me.mingshan.logger.async.api.Logger;
 import me.mingshan.logger.async.api.Message;
+import me.mingshan.logger.async.common.Constants;
 
 /**
  * 日志记录器，相当于生产者
@@ -33,7 +34,7 @@ public class AsyncLogger implements Logger<RingBufferLogEvent>, EventTranslatorV
 
     @Override
     public void logMessage(Message message) {
-        if (loggerDisruptor.isUseThreadLocals()) {
+        if (Constants.ENABLE_THREADLOCALS) {
             logWithThreadLocalTranslator(message);
         } else {
             logWithVarargTranslator(message);
@@ -75,6 +76,7 @@ public class AsyncLogger implements Logger<RingBufferLogEvent>, EventTranslatorV
     }
 
     private void handleRingBufferFull(Message message) {
+        // TODO
     }
 
     @Override

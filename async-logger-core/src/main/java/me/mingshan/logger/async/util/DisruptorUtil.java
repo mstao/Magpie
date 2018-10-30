@@ -46,8 +46,4 @@ public class DisruptorUtil {
                 : Constants.RINGBUFFER_DEFAULT_SIZE;
         return IntegerUtil.ceilingNextPowerOfTwo(ringBufferSize);
     }
-
-    public static ExceptionHandler<RingBufferLogEvent> getAsyncLoggerExceptionHandler() {
-        return null;
-    }
 }

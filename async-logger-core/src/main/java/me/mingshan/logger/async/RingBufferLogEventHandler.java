@@ -16,6 +16,11 @@ package me.mingshan.logger.async;
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
 
+/**
+ * 事件处理
+ *
+ * @author mingshan
+ */
 public class RingBufferLogEventHandler implements
         SequenceReportingEventHandler<RingBufferLogEvent> {
     private static final int NOTIFY_PROGRESS_THRESHOLD = 50;

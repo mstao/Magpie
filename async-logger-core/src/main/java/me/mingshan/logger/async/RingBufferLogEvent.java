@@ -16,6 +16,11 @@ package me.mingshan.logger.async;
 import me.mingshan.logger.async.api.LogEvent;
 import me.mingshan.logger.async.api.Message;
 
+/**
+ * 事件
+ *
+ * @author mingshan
+ */
 public class RingBufferLogEvent implements LogEvent {
     private long threadId;
     private String threadName;
