@@ -20,17 +20,17 @@ import me.mingshan.logger.async.api.Message;
  *
  * @author
  */
-public class RingBufferLogEventTranslator implements EventTranslator<RingBufferLogEvent> {
-    private Message message;
+public class RingBufferLogEventTranslator<E> implements EventTranslator<RingBufferLogEvent<E>> {
+    private E message;
     private long threadId;
     private String threadName;
 
     @Override
-    public void translateTo(RingBufferLogEvent event, long sequence) {
+    public void translateTo(RingBufferLogEvent<E> event, long sequence) {
         event.setValues(message, threadId, threadName);
     }
 
-    public void setValues(Message message, long threadId, String threadName) {
+    public void setValues(E message, long threadId, String threadName) {
         this.message = message;
         this.threadId = threadId;
         this.threadName = threadName;

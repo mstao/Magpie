@@ -20,7 +20,7 @@ import com.lmax.disruptor.ExceptionHandler;
  *
  * @author mingshan
  */
-public class AsyncLoggerConfigDefaultExceptionHandler implements ExceptionHandler<RingBufferLogEvent> {
+public class AsyncLoggerDefaultExceptionHandler<E> implements ExceptionHandler<RingBufferLogEvent<E>> {
 
     @Override
     public void handleEventException(final Throwable throwable, final long sequence, final RingBufferLogEvent event) {

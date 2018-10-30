@@ -11,38 +11,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.api;
+package me.mingshan.logger.async.extension;
 
-import java.io.Serializable;
+import me.mingshan.logger.async.api.LogExport;
 
-/**
- *
- *
- * @author mingshan
- */
-public interface LogEvent<E> extends Serializable {
+public class LogFileExport<E> implements LogExport<E> {
 
-    /**
-     *
-     * @return The
-     */
-    E getMessage();
-
-    /**
-     *
-     * @return
-     */
-    String getThreadName();
-
-    /**
-     *
-     * @return
-     */
-    long getThreadId();
-
-    /**
-     *
-     * @return
-     */
-    boolean isEndOfBatch();
+    @Override
+    public void export(E e) {
+        System.out.println("Message = " + e);
+    }
 }

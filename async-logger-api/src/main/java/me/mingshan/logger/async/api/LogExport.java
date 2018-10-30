@@ -21,7 +21,7 @@ public interface LogExport<E> {
 
     /**
      * Privoders a way to export log info.
-     * @param e
+     * @param message
      */
-    void export(E e);
+    void export(E message);
 }

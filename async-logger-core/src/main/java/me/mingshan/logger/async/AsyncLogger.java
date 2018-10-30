@@ -13,9 +13,8 @@
  */
 package me.mingshan.logger.async;
 
-import com.lmax.disruptor.EventTranslatorVararg;
+import com.lmax.disruptor.EventTranslatorOneArg;
 import me.mingshan.logger.async.api.Logger;
-import me.mingshan.logger.async.api.Message;
 import me.mingshan.logger.async.common.Constants;
 
 /**
@@ -23,17 +22,17 @@ import me.mingshan.logger.async.common.Constants;
  *
  * @author mingshan
  */
-public class AsyncLogger implements Logger<RingBufferLogEvent>, EventTranslatorVararg<RingBufferLogEvent> {
+public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTranslatorOneArg<RingBufferLogEvent<E>, E> {
 
-    private final ThreadLocal<RingBufferLogEventTranslator> threadLocalTranslator = new ThreadLocal<>();
-    private final AsyncLoggerDisruptor loggerDisruptor;
+    private final ThreadLocal<RingBufferLogEventTranslator<E>> threadLocalTranslator = new ThreadLocal<>();
+    private final AsyncLoggerDisruptor<E> loggerDisruptor;
 
-    public AsyncLogger(AsyncLoggerDisruptor loggerDisruptor) {
+    public AsyncLogger(AsyncLoggerDisruptor<E> loggerDisruptor) {
         this.loggerDisruptor = loggerDisruptor;
     }
 
     @Override
-    public void logMessage(Message message) {
+    public void logMessage(E message) {
         if (Constants.ENABLE_THREADLOCALS) {
             logWithThreadLocalTranslator(message);
         } else {
@@ -41,49 +40,52 @@ public class AsyncLogger implements Logger<RingBufferLogEvent>, EventTranslatorV
         }
     }
 
-    private void logWithThreadLocalTranslator(Message message) {
-        final RingBufferLogEventTranslator translator = getCachedTranslator();
+    private void logWithThreadLocalTranslator(E message) {
+        final RingBufferLogEventTranslator<E> translator = getCachedTranslator();
         initTranslator(translator, message);
         publish(translator);
     }
 
-    private void publish(RingBufferLogEventTranslator translator) {
+    private void publish(RingBufferLogEventTranslator<E> translator) {
         if (!loggerDisruptor.tryPublish(translator)) {
             // TODO
         }
     }
 
-    private RingBufferLogEventTranslator getCachedTranslator() {
-        RingBufferLogEventTranslator result = threadLocalTranslator.get();
+    private RingBufferLogEventTranslator<E> getCachedTranslator() {
+        RingBufferLogEventTranslator<E> result = threadLocalTranslator.get();
         if (result == null) {
-            result = new RingBufferLogEventTranslator();
+            result = new RingBufferLogEventTranslator<>();
             threadLocalTranslator.set(result);
         }
         return result;
     }
 
-    private void initTranslator(RingBufferLogEventTranslator translator, Message message) {
+    private void initTranslator(RingBufferLogEventTranslator<E> translator, E message) {
         Thread currentThread = Thread.currentThread();
         translator.setValues(message, currentThread.getId(), currentThread.getName());
     }
 
-    private void logWithVarargTranslator(Message message) {
-        System.out.println("Message ->" + message.getServiceName());
+    private void logWithVarargTranslator(E message) {
         if (!this.loggerDisruptor.getDisruptor().getRingBuffer()
                 .tryPublishEvent(this, message)) {
             handleRingBufferFull(message);
         }
     }
 
-    private void handleRingBufferFull(Message message) {
+    private void handleRingBufferFull(E message) {
         // TODO
     }
 
+
     @Override
-    public void translateTo(RingBufferLogEvent event, long sequence, Object... args) {
+    public void translateTo(RingBufferLogEvent<E> event, long sequence, E arg) {
         // 封装数据
         Thread currentThread = Thread.currentThread();
-        Message message = (Message) args[0];
-        event.setValues(message, currentThread.getId(), currentThread.getName());
+        event.setValues(arg, currentThread.getId(), currentThread.getName());
+    }
+
+    public void actualAsyncLog(final RingBufferLogEvent event) {
+
     }
 }

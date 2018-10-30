@@ -13,16 +13,18 @@
  */
 package me.mingshan.logger.async;
 
+import com.lmax.disruptor.LifecycleAware;
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
+import me.mingshan.logger.async.common.AsyncLoggerPlugins;
 
 /**
  * 事件处理
  *
  * @author mingshan
  */
-public class RingBufferLogEventHandler implements
-        SequenceReportingEventHandler<RingBufferLogEvent> {
+public class RingBufferLogEventHandler<E> implements
+        SequenceReportingEventHandler<RingBufferLogEvent<E>>, LifecycleAware {
     private static final int NOTIFY_PROGRESS_THRESHOLD = 50;
     private Sequence sequenceCallback;
     private int counter;
@@ -33,14 +35,23 @@ public class RingBufferLogEventHandler implements
     }
 
     @Override
-    public void onEvent(RingBufferLogEvent event, long sequence, boolean endOfBatch) throws Exception {
-        // 日志处理逻辑
-        System.out.println("Event - " + event.getMessage() + ", Sequence - " + sequence);
+    public void onEvent(RingBufferLogEvent<E> event, long sequence, boolean endOfBatch) throws Exception {
+        AsyncLoggerPlugins.getInstance().getlogExport().export(event.getMessage());
         event.clear();
 
         if (++counter > NOTIFY_PROGRESS_THRESHOLD) {
             sequenceCallback.set(sequence);
             counter = 0;
         }
+    }
+
+    @Override
+    public void onStart() {
+
+    }
+
+    @Override
+    public void onShutdown() {
+
     }
 }

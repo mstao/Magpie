@@ -13,6 +13,6 @@
  */
 package me.mingshan.logger.async.api;
 
-public interface Logger<E extends LogEvent> {
-    void logMessage(Message message);
+public interface Logger<T extends LogEvent, E> {
+    void logMessage(E message);
 }

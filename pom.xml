@@ -11,7 +11,7 @@
   <modules>
     <module>async-logger-core</module>
     <module>async-logger-api</module>
-    <module>async-logger-extends</module>
+    <module>async-logger-extension</module>
     <module>async-logger-examples</module>
   </modules>
 
