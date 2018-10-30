@@ -6,8 +6,8 @@ public class Test {
     public static void main(String[] args) {
         AsyncLoggerContext.start();
         AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
-        Message message = new Message();
         for (int i = 0; i < 2; i++) {
+            Message message = new Message();
             message.setServiceName("aa " + i);
             asyncLogger.logMessage(message);
         }
