@@ -12,6 +12,7 @@
     <module>async-logger-core</module>
     <module>async-logger-api</module>
     <module>async-logger-extends</module>
+    <module>async-logger-examples</module>
   </modules>
 
   <!--集中管理版本号-->
@@ -19,12 +20,19 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>4.12</junit.version>
     <disruptor.version>3.4.2</disruptor.version>
   </properties>
 
   <!-- 公共依赖 -->
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+        <scope>test</scope>
+      </dependency>
       <dependency>
         <groupId>com.lmax</groupId>
         <artifactId>disruptor</artifactId>

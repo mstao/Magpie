@@ -14,7 +14,7 @@
 package me.mingshan.logger.async.util;
 
 import com.lmax.disruptor.*;
-import me.mingshan.logger.async.Constants;
+import me.mingshan.logger.async.common.Constants;
 import me.mingshan.logger.async.DisruptorWaitStrategy;
 import me.mingshan.logger.async.RingBufferLogEvent;
 
