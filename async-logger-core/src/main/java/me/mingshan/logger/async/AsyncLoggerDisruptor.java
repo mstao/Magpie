@@ -33,6 +33,9 @@ public class AsyncLoggerDisruptor<E> {
         return disruptor;
     }
 
+    /**
+     * 启动Disruptor
+     */
     public synchronized void start() {
         if (disruptor != null) {
             return;
@@ -62,6 +65,9 @@ public class AsyncLoggerDisruptor<E> {
         System.out.println("Disruptor started");
     }
 
+    /**
+     * 关闭Disruptor
+     */
     public void stop() {
         disruptor.shutdown();
     }

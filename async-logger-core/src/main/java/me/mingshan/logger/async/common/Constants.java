@@ -42,6 +42,6 @@ public class Constants {
     /**
      * 导出日志默认实现类全限定名
      */
-    public static final String DEFAULT_LOG_EXPORT_IMPL = "me.mingshan.logger.async.extension.LogFileExport";
+    public static final String DEFAULT_LOG_EXPORT_IMPL = "me.mingshan.logger.async.DefaultLogExportImpl";
 
 }

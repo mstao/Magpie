@@ -14,7 +14,6 @@
 package me.mingshan.logger.async;
 
 import com.lmax.disruptor.EventTranslator;
-import me.mingshan.logger.async.api.Message;
 
 /**
  *

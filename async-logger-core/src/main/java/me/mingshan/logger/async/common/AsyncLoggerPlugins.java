@@ -6,6 +6,8 @@ import java.util.ServiceLoader;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
+ * 异步日志相关插件
+ *
  * @author mingshan
  */
 public class AsyncLoggerPlugins<E> {
