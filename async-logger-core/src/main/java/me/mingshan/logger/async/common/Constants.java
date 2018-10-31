@@ -35,13 +35,12 @@ public class Constants {
     public static final long BLOCKING_WAIT_STRAGETY_TIMEOUT_MILLIS = 123L;
 
     /**
-     * 是否启动ThreadLocal
-     */
-    public static final boolean ENABLE_THREADLOCALS = false;
-
-    /**
      * 导出日志默认实现类全限定名
      */
     public static final String DEFAULT_LOG_EXPORT_IMPL = "me.mingshan.logger.async.DefaultLogExportImpl";
 
+    /**
+     * {@code SequenceReportingEventHandler} 批处理Event的阈值
+     */
+    public static final int NOTIFY_PROGRESS_THRESHOLD = 50;
 }

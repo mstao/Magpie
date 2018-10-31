@@ -13,10 +13,14 @@
  */
 package me.mingshan.logger.async;
 
-import com.lmax.disruptor.LifecycleAware;
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
+import me.mingshan.logger.async.api.LogExport;
 import me.mingshan.logger.async.common.AsyncLoggerPlugins;
+import me.mingshan.logger.async.common.Constants;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 事件处理
@@ -24,10 +28,10 @@ import me.mingshan.logger.async.common.AsyncLoggerPlugins;
  * @author mingshan
  */
 public class RingBufferLogEventHandler<E> implements
-        SequenceReportingEventHandler<RingBufferLogEvent<E>>, LifecycleAware {
-    private static final int NOTIFY_PROGRESS_THRESHOLD = 50;
+        SequenceReportingEventHandler<RingBufferLogEvent<E>> {
+    private static final AtomicInteger COUNT = new AtomicInteger(1);
     private Sequence sequenceCallback;
-    private int counter;
+    private int batchCounter = Constants.NOTIFY_PROGRESS_THRESHOLD;
 
     @Override
     public void setSequenceCallback(Sequence sequenceCallback) {
@@ -36,22 +40,21 @@ public class RingBufferLogEventHandler<E> implements
 
     @Override
     public void onEvent(RingBufferLogEvent<E> event, long sequence, boolean endOfBatch) throws Exception {
-        AsyncLoggerPlugins.getInstance().getlogExport().export(event.getMessage());
+        final boolean pseudoEndOfBatch = endOfBatch || --batchCounter == 0;
+
+        // Do work...
+        AsyncLoggerPlugins<E> asyncLoggerPlugins = AsyncLoggerPlugins.getInstance();
+        List<LogExport<E>> logExports = asyncLoggerPlugins.getlogExports();
+        for (LogExport<E> logExport : logExports) {
+            logExport.export(event.getMessage());
+        }
         event.clear();
 
-        if (++counter > NOTIFY_PROGRESS_THRESHOLD) {
+        // ----
+        if (pseudoEndOfBatch) {
+            batchCounter = Constants.NOTIFY_PROGRESS_THRESHOLD;
             sequenceCallback.set(sequence);
-            counter = 0;
         }
-    }
-
-    @Override
-    public void onStart() {
-
-    }
-
-    @Override
-    public void onShutdown() {
-
+        System.out.println(COUNT.getAndIncrement());
     }
 }

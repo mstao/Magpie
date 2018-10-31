@@ -36,11 +36,6 @@
         <artifactId>async-logger-api</artifactId>
         <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>me.mingshan.logger.async</groupId>
-      <artifactId>async-logger-extension</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
   <build>
     <finalName>${project.name}</finalName>

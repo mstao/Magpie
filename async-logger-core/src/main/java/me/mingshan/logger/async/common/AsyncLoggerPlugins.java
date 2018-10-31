@@ -2,6 +2,8 @@ package me.mingshan.logger.async.common;
 
 import me.mingshan.logger.async.api.LogExport;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ServiceLoader;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -11,54 +13,62 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author mingshan
  */
 public class AsyncLoggerPlugins<E> {
-    private final AtomicReference<LogExport<E>> logExport = new AtomicReference<>();
+    private final AtomicReference<List<LogExport<E>>> logExports = new AtomicReference<>();
 
     private static class AsyncLoggerPluginsHolder {
-        private static final AsyncLoggerPlugins instance = new AsyncLoggerPlugins();
+        private static final AsyncLoggerPlugins instance = new AsyncLoggerPlugins<>();
     }
 
-    public static AsyncLoggerPlugins getInstance() {
+    @SuppressWarnings("unchecked")
+    public static<E> AsyncLoggerPlugins<E> getInstance() {
         return AsyncLoggerPluginsHolder.instance;
     }
 
-    public LogExport<E> getlogExport() {
-        if (logExport.get() == null) {
+    @SuppressWarnings("unchecked")
+    public List<LogExport<E>> getlogExports() {
+        if (logExports.get() == null) {
             Object impl = getPluginImplementation(LogExport.class);
-            logExport.compareAndSet(null, (LogExport<E>) impl);
+            logExports.compareAndSet(null, (List<LogExport<E>>) impl);
         }
 
-        return logExport.get();
+        return logExports.get();
     }
 
-    public void registerLogExport(LogExport impl) {
-        if (!logExport.compareAndSet(null, impl)) {
+    public void registerLogExports(List<LogExport<E>> impl) {
+        if (!logExports.compareAndSet(null, impl)) {
             throw new IllegalStateException("Another LogExport was already registered.");
         }
     }
 
-    private <T> T getPluginImplementation(Class<?> clazz) {
-        return (T) findClass(clazz);
+    private <T> List<T> getPluginImplementation(Class<T> clazz) {
+        return findClass(clazz);
     }
 
-    private <T> T findClass(Class<T> clazz) {
+    @SuppressWarnings("unchecked")
+    private <T> List<T> findClass(Class<T> clazz) {
+        List<T> objs = new ArrayList<>();
         // SPI
         ServiceLoader<T> serviceLoader =  ServiceLoader.load(clazz);
         for (T t : serviceLoader) {
             if (t != null) {
-                return t;
+                objs.add(t);
             }
         }
 
         // 如果没有提供实现，则使用默认实现
-        T result = null;
-        ClassLoader classLoader = AsyncLoggerPlugins.class.getClassLoader();
-        try {
-            result = (T) classLoader.loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
-        } catch (ClassNotFoundException e) {
-            System.out.println("Class not find ....");
-            e.printStackTrace();
+        if (objs.isEmpty()) {
+            T result = null;
+            ClassLoader classLoader = AsyncLoggerPlugins.class.getClassLoader();
+            try {
+                result = (T) classLoader.loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
+            } catch (ClassNotFoundException e) {
+                System.out.println("Class not find ....");
+                e.printStackTrace();
+            }
+            objs.add(result);
         }
-        return result;
+
+        return objs;
     }
 
 }

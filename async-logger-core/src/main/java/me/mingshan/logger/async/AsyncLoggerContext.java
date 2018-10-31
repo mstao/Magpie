@@ -13,12 +13,14 @@
  */
 package me.mingshan.logger.async;
 
+import me.mingshan.logger.async.common.AsyncLoggerPlugins;
+
 /**
  * 异步日志启动上下文
  *
  * @author mingshan
  */
-public class AsyncLoggerContext {
+public class AsyncLoggerContext<E> {
     private static AsyncLoggerDisruptor loggerDisruptor = new AsyncLoggerDisruptor();
     private static AsyncLogger asyncLogger;
 
@@ -30,11 +32,12 @@ public class AsyncLoggerContext {
         loggerDisruptor.stop();
     }
 
-    public static AsyncLogger getAsyncLogger() {
+    @SuppressWarnings("unchecked")
+    public static<E> AsyncLogger<E> getAsyncLogger() {
         if (asyncLogger == null) {
             synchronized (AsyncLogger.class) {
                 if (asyncLogger == null) {
-                    asyncLogger = new AsyncLogger(loggerDisruptor);
+                    asyncLogger = new AsyncLogger<E>(loggerDisruptor);
                 }
             }
         }

@@ -15,7 +15,6 @@ package me.mingshan.logger.async;
 
 import com.lmax.disruptor.EventTranslatorOneArg;
 import me.mingshan.logger.async.api.Logger;
-import me.mingshan.logger.async.common.Constants;
 
 /**
  * 日志记录器，相当于生产者
@@ -23,8 +22,6 @@ import me.mingshan.logger.async.common.Constants;
  * @author mingshan
  */
 public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTranslatorOneArg<RingBufferLogEvent<E>, E> {
-
-    private final ThreadLocal<RingBufferLogEventTranslator<E>> threadLocalTranslator = new ThreadLocal<>();
     private final AsyncLoggerDisruptor<E> loggerDisruptor;
 
     public AsyncLogger(AsyncLoggerDisruptor<E> loggerDisruptor) {
@@ -33,59 +30,37 @@ public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTrans
 
     @Override
     public void logMessage(E message) {
-        if (Constants.ENABLE_THREADLOCALS) {
-            logWithThreadLocalTranslator(message);
-        } else {
-            logWithVarargTranslator(message);
-        }
+        System.out.println("发布数据 -- " + message);
+        logWithOneArgTranslator(message);
     }
 
-    private void logWithThreadLocalTranslator(E message) {
-        final RingBufferLogEventTranslator<E> translator = getCachedTranslator();
-        initTranslator(translator, message);
-        publish(translator);
+    /**
+     * 发布Event
+     * @param message
+     */
+    private void logWithOneArgTranslator(E message) {
+        // 使用{@link RingBuffer#tryPublishEvent} 会先尝试放入event，当RingBuffer会返回false，
+        // 放入失败，此时需要进行处理
+//        if (!this.loggerDisruptor.getDisruptor().getRingBuffer()
+//                .tryPublishEvent(this, message)) {
+//            handleRingBufferFull(message);
+//        }
+        this.loggerDisruptor.getDisruptor().getRingBuffer().publishEvent(this, message);
     }
 
-    private void publish(RingBufferLogEventTranslator<E> translator) {
-        if (!loggerDisruptor.tryPublish(translator)) {
-            // TODO
-        }
-    }
-
-    private RingBufferLogEventTranslator<E> getCachedTranslator() {
-        RingBufferLogEventTranslator<E> result = threadLocalTranslator.get();
-        if (result == null) {
-            result = new RingBufferLogEventTranslator<>();
-            threadLocalTranslator.set(result);
-        }
-        return result;
-    }
-
-    private void initTranslator(RingBufferLogEventTranslator<E> translator, E message) {
-        Thread currentThread = Thread.currentThread();
-        translator.setValues(message, currentThread.getId(), currentThread.getName());
-    }
-
-    private void logWithVarargTranslator(E message) {
-        if (!this.loggerDisruptor.getDisruptor().getRingBuffer()
-                .tryPublishEvent(this, message)) {
-            handleRingBufferFull(message);
-        }
-    }
-
+    /**
+     * 处理队列满的情况
+     * @param message
+     */
     private void handleRingBufferFull(E message) {
         // TODO
+        System.out.println("队列满了--- " + message);
     }
-
 
     @Override
     public void translateTo(RingBufferLogEvent<E> event, long sequence, E arg) {
         // 封装数据
         Thread currentThread = Thread.currentThread();
         event.setValues(arg, currentThread.getId(), currentThread.getName());
-    }
-
-    public void actualAsyncLog(final RingBufferLogEvent event) {
-
     }
 }

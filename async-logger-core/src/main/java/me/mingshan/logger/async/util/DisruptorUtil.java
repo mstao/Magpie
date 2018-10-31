@@ -42,8 +42,7 @@ public class DisruptorUtil {
     }
 
     public static int calculateRingBufferSize() {
-        int ringBufferSize = Constants.ENABLE_THREADLOCALS ? Constants.RINGBUFFER_NO_GC_DEFAULT_SIZE
-                : Constants.RINGBUFFER_DEFAULT_SIZE;
+        int ringBufferSize = Constants.RINGBUFFER_DEFAULT_SIZE;
         return IntegerUtil.ceilingNextPowerOfTwo(ringBufferSize);
     }
 }

@@ -51,15 +51,15 @@ public class AsyncLoggerDisruptor<E> {
         };
 
         int ringBufferSize = DisruptorUtil.calculateRingBufferSize();
-        final WaitStrategy waitStrategy = DisruptorUtil.createWaitStrategy(DisruptorWaitStrategy.SLEEP);
+        final WaitStrategy waitStrategy = DisruptorUtil.createWaitStrategy(DisruptorWaitStrategy.TIMEOUT);
         EventFactory factory = RingBufferLogEvent<E>::new;
         disruptor = new Disruptor<RingBufferLogEvent<E>>(factory,
                 ringBufferSize, threadFactory, ProducerType.SINGLE, waitStrategy);
 
-        final ExceptionHandler<RingBufferLogEvent<E>> errorHandler = new AsyncLoggerDefaultExceptionHandler();
+        final ExceptionHandler<RingBufferLogEvent<E>> errorHandler = new AsyncLoggerDefaultExceptionHandler<>();
         disruptor.setDefaultExceptionHandler(errorHandler);
 
-        final SequenceReportingEventHandler[] handlers = {new RingBufferLogEventHandler<E>()};
+        final EventHandler[] handlers = {new RingBufferLogEventHandler<E>()};
         disruptor.handleEventsWith(handlers);
         disruptor.start();
         System.out.println("Disruptor started");
