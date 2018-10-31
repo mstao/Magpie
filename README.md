@@ -5,6 +5,6 @@ An asynchronous logger compenent with Disruptor.
 
 You can know and use:
 
-- Java SPI for plugins, including LogExoprt configuration(console, file, logstash and etc)
+- Java SPI for plugins, including LogExport configuration(console, file, logstash and etc)
 - Support Disruptor, privodes perfect performance
 - Thinking...
