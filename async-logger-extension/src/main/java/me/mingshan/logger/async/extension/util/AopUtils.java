@@ -16,6 +16,7 @@ package me.mingshan.logger.async.extension.util;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -75,10 +76,10 @@ public final class AopUtils {
     }
 
     /**
-     * Gets parameter list of the join point.
+     * Gets parameter array of the join point.
      *
-     * @param joinPoint the join point.
-     * @return the parameter list.
+     * @param joinPoint the join point
+     * @return the parameter array
      */
     public static Object[] getParameters(JoinPoint joinPoint) {
         return joinPoint.getArgs();
@@ -97,21 +98,40 @@ public final class AopUtils {
         try {
             method = type.getDeclaredMethod(methodName, parameterTypes);
             if(method.isBridge()){
-                //method = MethodProvider.getInstance().unbride(method, type);
+                // Uses Asm to unbride bride method.
+                method = MethodProvider.getInstance().unbride(method, type);
             }
         } catch (NoSuchMethodException e) {
             Class<?> superclass = type.getSuperclass();
             if (superclass != null) {
                 method = getDeclaredMethod(superclass, methodName, parameterTypes);
             }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
         return method;
     }
 
+    /**
+     * Gets annotation by {@code JoinPoint} and the class object of annotation.
+     *
+     * @param joinPoint the join point
+     * @param annotation the class object of annotation
+     * @param <T> the annotation
+     * @return the annotation
+     */
     public static <T extends Annotation> Optional<T> getAnnotation(JoinPoint joinPoint, Class<T> annotation) {
         return getAnnotation(joinPoint.getTarget().getClass(), annotation);
     }
 
+    /**
+     * Gets annotation by class and the class object of annotation.
+     *
+     * @param type the type
+     * @param annotation the class object of annotation
+     * @param <T> the annotation
+     * @return the annotation
+     */
     public static <T extends Annotation> Optional<T> getAnnotation(Class<?> type, Class<T> annotation) {
         Objects.requireNonNull(annotation, "annotation cannot be null");
         Objects.requireNonNull(type, "type cannot be null");
@@ -128,6 +148,12 @@ public final class AopUtils {
         return Optional.empty();
     }
 
+    /**
+     * Prints method information.
+     *
+     * @param m the method
+     * @return the string of method information
+     */
     public static String getMethodInfo(Method m) {
         StringBuilder info = new StringBuilder();
         info.append("Method signature:").append("\n");
@@ -191,6 +217,12 @@ public final class AopUtils {
         return info.toString();
     }
 
+    /**
+     * Gets access level by modifier.
+     *
+     * @param modifiers the modifier
+     * @return the access level
+     */
     private static String getAccessLevel(int modifiers) {
         if (Modifier.isPublic(modifiers)) {
             return "public";
