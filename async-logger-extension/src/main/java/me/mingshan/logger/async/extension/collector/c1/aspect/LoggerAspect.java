@@ -1,3 +1,16 @@
+/**
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package me.mingshan.logger.async.extension.collector.c1.aspect;
 
 import me.mingshan.logger.async.AsyncLogger;
@@ -39,8 +52,8 @@ import static me.mingshan.logger.async.extension.util.AopUtils.*;
  *
  * }}</pre>
  *
+ * @author mingshan
  */
-
 @Aspect
 public class LoggerAspect {
 
@@ -79,9 +92,14 @@ public class LoggerAspect {
                 executedTime = System.currentTimeMillis() - startTime;
             } catch (Throwable t) {
                 // 记录异常信息
-                writeMessage(serviceName, methodName, params, result, executedTime, Level.ERROR, t);
+                writeMessage(serviceName, methodName, params, logAnnotation.recordResult() ? result : null,
+                        executedTime, Level.ERROR, t);
                 throw t;
             }
+
+            // 执行完毕，记录日志
+            writeMessage(serviceName, methodName, params, logAnnotation.recordResult() ? result : null,
+                    executedTime, Level.INFO, null);
         } else {
             result = joinPoint.proceed();
         }
