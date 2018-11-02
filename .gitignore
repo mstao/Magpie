@@ -1,5 +1,9 @@
 # Compiled class file
 *.class
+target
+
+# Compiled class file #
+*.class
 
 # Log file
 *.log
@@ -28,6 +32,7 @@ hs_err_pid*
 *.iml
 *.ipr
 
-### my own ###
+### Eclipse ###
+.classpath
+.project
 .settings
-target

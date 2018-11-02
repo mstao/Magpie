@@ -16,6 +16,30 @@
     <module>async-logger-insight</module>
   </modules>
 
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <name>Walker Han</name>
+      <email>walkerhan@126.com</email>
+    </developer>
+  </developers>
+
+  <scm>
+    <connection>scm:git:https://github.com/mstao/asynchronous-logger-component.git</connection>
+    <developerConnection>scm:git:https://github.com/mstao/asynchronous-logger-component.git</developerConnection>
+    <url>https://github.com/mstao/asynchronous-logger-component</url>
+    <tag>${project.version}</tag>
+  </scm>
+
+  <inceptionYear>2018</inceptionYear>
+
   <!--集中管理版本号-->
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
