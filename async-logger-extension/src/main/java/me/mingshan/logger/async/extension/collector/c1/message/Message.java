@@ -11,7 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.api;
+package me.mingshan.logger.async.extension.collector.c1.message;
+
+import me.mingshan.logger.async.api.Level;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -19,20 +21,12 @@ import java.util.Arrays;
 public class Message implements Serializable {
     private String serviceName;
     private String methodName;
-    private Object[] args;
-    private Object result;
+    private String args;
+    private String result;
     private long executedTime;
     private String message;
     private Level level;
     private Throwable e;
-
-    public String getMethodName() {
-        return methodName;
-    }
-
-    public void setMethodName(String methodName) {
-        this.methodName = methodName;
-    }
 
     public String getServiceName() {
         return serviceName;
@@ -42,19 +36,27 @@ public class Message implements Serializable {
         this.serviceName = serviceName;
     }
 
-    public Object[] getArgs() {
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getArgs() {
         return args;
     }
 
-    public void setArgs(Object[] args) {
+    public void setArgs(String args) {
         this.args = args;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public void setResult(String result) {
         this.result = result;
     }
 
@@ -93,10 +95,10 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         return "Message{" +
-                "methodName='" + methodName + '\'' +
-                ", serviceName='" + serviceName + '\'' +
-                ", args=" + Arrays.toString(args) +
-                ", result=" + result +
+                "serviceName='" + serviceName + '\'' +
+                ", methodName='" + methodName + '\'' +
+                ", args='" + args + '\'' +
+                ", result='" + result + '\'' +
                 ", executedTime=" + executedTime +
                 ", message='" + message + '\'' +
                 ", level=" + level +

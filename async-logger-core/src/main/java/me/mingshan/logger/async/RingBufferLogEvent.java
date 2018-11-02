@@ -14,8 +14,6 @@
 package me.mingshan.logger.async;
 
 import me.mingshan.logger.async.api.LogEvent;
-import me.mingshan.logger.async.api.Message;
-import me.mingshan.logger.async.common.AsyncLoggerPlugins;
 
 /**
  * 事件

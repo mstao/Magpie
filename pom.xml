@@ -13,6 +13,7 @@
     <module>async-logger-api</module>
     <module>async-logger-extension</module>
     <module>async-logger-examples</module>
+    <module>async-logger-insight</module>
   </modules>
 
   <!--集中管理版本号-->
@@ -22,6 +23,10 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.12</junit.version>
     <disruptor.version>3.4.2</disruptor.version>
+    <aspect.version>1.9.2</aspect.version>
+    <asm.version>7.0</asm.version>
+    <guava.version>27.0-jre</guava.version>
+    <fastjson.version>1.2.51</fastjson.version>
   </properties>
 
   <!-- 公共依赖 -->
@@ -37,6 +42,36 @@
         <groupId>com.lmax</groupId>
         <artifactId>disruptor</artifactId>
         <version>${disruptor.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>${aspect.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjrt</artifactId>
+        <version>${aspect.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjtools</artifactId>
+        <version>${aspect.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
