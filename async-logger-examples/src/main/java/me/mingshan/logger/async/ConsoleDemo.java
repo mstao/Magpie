@@ -2,7 +2,7 @@ package me.mingshan.logger.async;
 
 import me.mingshan.logger.async.api.Message;
 
-public class Test {
+public class ConsoleDemo {
     public static void main(String[] args) {
         AsyncLoggerContext.start();
         AsyncLogger<Message> asyncLogger = AsyncLoggerContext.getAsyncLogger();
@@ -12,5 +12,4 @@ public class Test {
             asyncLogger.logMessage(message);
         }
     }
-
 }

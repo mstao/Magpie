@@ -16,11 +16,10 @@ package me.mingshan.logger.async;
 import com.lmax.disruptor.Sequence;
 import com.lmax.disruptor.SequenceReportingEventHandler;
 import me.mingshan.logger.async.api.LogExport;
-import me.mingshan.logger.async.common.AsyncLoggerPlugins;
+import me.mingshan.logger.async.plugin.AsyncLoggerPlugins;
 import me.mingshan.logger.async.common.Constants;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 事件处理
@@ -29,7 +28,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RingBufferLogEventHandler<E> implements
         SequenceReportingEventHandler<RingBufferLogEvent<E>> {
-    private static final AtomicInteger COUNT = new AtomicInteger(1);
     private Sequence sequenceCallback;
     private int batchCounter = Constants.NOTIFY_PROGRESS_THRESHOLD;
 
@@ -55,6 +53,5 @@ public class RingBufferLogEventHandler<E> implements
             batchCounter = Constants.NOTIFY_PROGRESS_THRESHOLD;
             sequenceCallback.set(sequence);
         }
-        System.out.println(COUNT.getAndIncrement());
     }
 }

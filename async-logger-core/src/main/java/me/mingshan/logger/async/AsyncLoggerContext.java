@@ -13,15 +13,13 @@
  */
 package me.mingshan.logger.async;
 
-import me.mingshan.logger.async.common.AsyncLoggerPlugins;
-
 /**
  * 异步日志启动上下文
  *
  * @author mingshan
  */
 public class AsyncLoggerContext<E> {
-    private static AsyncLoggerDisruptor loggerDisruptor = new AsyncLoggerDisruptor();
+    private static final AsyncLoggerDisruptor loggerDisruptor = new AsyncLoggerDisruptor();
     private static AsyncLogger asyncLogger;
 
     public static void start() {

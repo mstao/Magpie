@@ -43,4 +43,14 @@ public class Constants {
      * {@code SequenceReportingEventHandler} 批处理Event的阈值
      */
     public static final int NOTIFY_PROGRESS_THRESHOLD = 50;
+
+    /**
+     * The prefix of property.
+     */
+    public static final String PLUGIN_PROPERTY_PREFIX = "asynclogger.plugin";
+
+    /**
+     * The name of property file.
+     */
+    public static final String PLUGIN_PROPERTY_FILE_NAME = "asynclogger.properties";
 }
