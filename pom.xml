@@ -51,6 +51,7 @@
     <asm.version>7.0</asm.version>
     <guava.version>27.0-jre</guava.version>
     <fastjson.version>1.2.51</fastjson.version>
+    <caffeine.version>2.6.2</caffeine.version>
   </properties>
 
   <!-- 公共依赖 -->
@@ -96,6 +97,11 @@
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
         <version>${fastjson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.ben-manes.caffeine</groupId>
+        <artifactId>caffeine</artifactId>
+        <version>${caffeine.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
