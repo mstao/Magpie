@@ -27,16 +27,16 @@ public class CaffeineConfig {
     // The unit of refresh time.
     private static final TimeUnit REFRESH_TIME_UNIT = TimeUnit.MINUTES;
 
-    private static LoadingCache<Object, Object> cache;
+    private static Cache<Object, Object> cache;
 
-    public static LoadingCache<Object, Object> getCache() {
+    public static Cache<Object, Object> getCache() {
         if (cache == null) {
             synchronized (CaffeineConfig.class) {
                 if (cache == null) {
-                    cache = (LoadingCache<Object, Object>) Caffeine.newBuilder()
+                    cache = Caffeine.newBuilder()
                         .maximumSize(MAXINUM_SIZE)
                         .expireAfterWrite(EXPIRE_TIME, EXPIRE_TIME_UNIT)
-                        .refreshAfterWrite(1, TimeUnit.MINUTES)
+                        //.refreshAfterWrite( REFRESH_TIME, REFRESH_TIME_UNIT)
                         .build();
                 }
             }

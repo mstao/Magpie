@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  */
 public class CaffeineCache implements Cache {
-    private com.github.benmanes.caffeine.cache.LoadingCache<Object, Object> cache;
+    private com.github.benmanes.caffeine.cache.Cache<Object, Object> cache;
 
     /**
      * No Public.
@@ -42,7 +42,7 @@ public class CaffeineCache implements Cache {
     @Override
     public Object get(Object key) {
         Objects.requireNonNull(key);
-        return this.get(key);
+        return this.cache.getIfPresent(key);
     }
 
     @Override
@@ -52,10 +52,9 @@ public class CaffeineCache implements Cache {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Object putIfPresent(Object key, Object value) {
         Objects.requireNonNull(key);
-        Object existingValue = this.cache.get(key);
+        Object existingValue = this.cache.getIfPresent(key);
         if (existingValue == null) {
             cache.put(key, value);
             return null;
