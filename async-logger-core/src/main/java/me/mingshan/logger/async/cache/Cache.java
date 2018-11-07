@@ -5,7 +5,7 @@ package me.mingshan.logger.async.cache;
  *
  * @author mingshan
  */
-public interface Cache<T> {
+public interface Cache {
 
     /**
      * Gets the name of cache.
@@ -20,7 +20,7 @@ public interface Cache<T> {
      * @param key the specified key
      * @return the value which is associated with the specified key
      */
-    T get(Object key);
+    Object get(Object key);
 
     /**
      * Puts key and value into cache.
@@ -28,7 +28,7 @@ public interface Cache<T> {
      * @param key the specified key
      * @param value the value which is associated with the specified key
      */
-    void put(Object key, T value);
+    void put(Object key, Object value);
 
     /**
      * Atomically associate the specified value with the specified key in this cache
@@ -49,7 +49,7 @@ public interface Cache<T> {
      * @return if the value which is associated with the specified key is {@code null},
      * return {@code null}, if the value is existed, return the existed value.
      */
-    T putIfPresent(Object key, T value);
+    Object putIfPresent(Object key, Object value);
 
     /**
      * Evicts the mapping for this key from this cache if it is present.

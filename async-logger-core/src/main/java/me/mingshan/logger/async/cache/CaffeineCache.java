@@ -7,15 +7,14 @@ import java.util.Objects;
 /**
  * The cache implementation with Caffeine.
  *
- * @param <T> the generics class
  */
-public class CaffeineCache<T> implements Cache<T> {
+public class CaffeineCache implements Cache {
     private com.github.benmanes.caffeine.cache.LoadingCache<Object, Object> cache;
 
     /**
      * No Public.
      */
-    private CaffeineCache() {
+    public CaffeineCache() {
         cache = CaffeineConfig.getCache();
     }
 
@@ -23,7 +22,7 @@ public class CaffeineCache<T> implements Cache<T> {
      * Inner class for Lazy load.
      */
     private static final class CaffeineCacheHolder {
-        private static final CaffeineCache  INSTANCE = new CaffeineCache();
+        private static final CaffeineCache INSTANCE = new CaffeineCache();
     }
 
     /**
@@ -41,27 +40,27 @@ public class CaffeineCache<T> implements Cache<T> {
     }
 
     @Override
-    public T get(Object key) {
+    public Object get(Object key) {
         Objects.requireNonNull(key);
         return this.get(key);
     }
 
     @Override
-    public void put(Object key, T value) {
+    public void put(Object key, Object value) {
         Objects.requireNonNull(key);
         this.cache.put(key, value);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public T putIfPresent(Object key, T value) {
+    public Object putIfPresent(Object key, Object value) {
         Objects.requireNonNull(key);
         Object existingValue = this.cache.get(key);
         if (existingValue == null) {
             cache.put(key, value);
             return null;
         } else {
-            return (T) existingValue;
+            return existingValue;
         }
     }
 

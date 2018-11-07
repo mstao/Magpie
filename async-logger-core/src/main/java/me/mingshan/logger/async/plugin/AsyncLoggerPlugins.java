@@ -15,9 +15,11 @@ package me.mingshan.logger.async.plugin;
 
 import me.mingshan.logger.async.api.LogExport;
 import me.mingshan.logger.async.common.Constants;
+import me.mingshan.logger.async.property.AsyncLoggerFileProperties;
 import me.mingshan.logger.async.property.AsyncLoggerProperties;
 import me.mingshan.logger.async.property.AsyncLoggerProperty;
 import me.mingshan.logger.async.property.AsyncLoggerSystemProperties;
+import me.mingshan.logger.async.util.ClassUtil;
 import me.mingshan.logger.async.util.StringUtil;
 
 import java.lang.reflect.Constructor;
@@ -36,23 +38,45 @@ public class AsyncLoggerPlugins<E> {
     private final AtomicReference<List<LogExport<E>>> logExports = new AtomicReference<>();
     private final AsyncLoggerProperties asyncLoggerProperties;
 
+    /**
+     * Inner class for lazy load.
+     */
     private static class AsyncLoggerPluginsHolder {
         private static final AsyncLoggerPlugins instance = AsyncLoggerPlugins.create();
     }
 
+    /**
+     * Returns the instance of {@link AsyncLoggerPlugins}.
+     *
+     * @param <E> the generics class
+     * @return the instance of {@link AsyncLoggerPlugins}
+     */
     @SuppressWarnings("unchecked")
     public static<E> AsyncLoggerPlugins<E> getInstance() {
         return AsyncLoggerPluginsHolder.instance;
     }
 
+    /**
+     * No Public
+     */
     private AsyncLoggerPlugins() {
         asyncLoggerProperties = resolveDynamicProperties();
     }
 
+    /**
+     * Creates an instance of {@link AsyncLoggerPlugins}.
+     *
+     * @return the instance of {@link AsyncLoggerPlugins}
+     */
     private static AsyncLoggerPlugins create() {
         return new AsyncLoggerPlugins<>();
     }
 
+    /**
+     * Gets the implementations of {@link LogExport}.
+     *
+     * @return the implementations of {@link LogExport}
+     */
     @SuppressWarnings("unchecked")
     public List<LogExport<E>> getlogExports() {
         if (logExports.get() == null) {
@@ -63,15 +87,27 @@ public class AsyncLoggerPlugins<E> {
         return logExports.get();
     }
 
+    /**
+     * Registers a instance of {@link LogExport}.
+     *
+     * @param impl the implementation of {@link LogExport}
+     */
     public void registerLogExports(List<LogExport<E>> impl) {
         if (!logExports.compareAndSet(null, impl)) {
             throw new IllegalStateException("Another LogExport was already registered.");
         }
     }
 
+    /**
+     * Gets the implementations of plugin.
+     *
+     * @param clazz the class of plugin
+     * @param <T> the generics class
+     * @return the implementation of plugin
+     */
     private <T> List<T> getPluginImplementation(Class<T> clazz) {
         T t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-
+        System.out.println("通过 property 找到 " + clazz);
         if (t != null) {
             List<T> objs = new ArrayList<>();
             objs.add(t);
@@ -81,6 +117,14 @@ public class AsyncLoggerPlugins<E> {
         return findClass(clazz);
     }
 
+    /**
+     * Gets plugin implementation via property.
+     *
+     * @param asyncLoggerProperties the {@link AsyncLoggerProperties} implementation
+     * @param clazz the interface which will be get
+     * @param <T> the generics class
+     * @return the implementation
+     */
     @SuppressWarnings("unchecked")
     private <T> T getPluginImplementationByProperty(AsyncLoggerProperties asyncLoggerProperties,
         Class<T> clazz) {
@@ -121,7 +165,7 @@ public class AsyncLoggerPlugins<E> {
     /**
      * This method needs to be extended.
      *
-     * @return
+     * @return {@code syncLoggerProperties} implementation
      */
     private AsyncLoggerProperties resolveDynamicProperties() {
         // issue?
@@ -129,6 +173,13 @@ public class AsyncLoggerPlugins<E> {
         return asyncLoggerProperties;
     }
 
+    /**
+     * Finds class via SPI or default implementation.
+     *
+     * @param clazz the interface which will be get
+     * @param <T> the generics class
+     * @return the implementation
+     */
     @SuppressWarnings("unchecked")
     private <T> List<T> findClass(Class<T> clazz) {
         List<T> objs = new ArrayList<>();
@@ -140,12 +191,11 @@ public class AsyncLoggerPlugins<E> {
             }
         }
 
-        // If property and spi are null, choose the default implementation.
+        // If property and spi are null, chooses the default implementation.
         if (objs.isEmpty()) {
             T result = null;
-            ClassLoader classLoader = AsyncLoggerPlugins.class.getClassLoader();
             try {
-                result = (T) classLoader.loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
+                result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Class " + clazz + " not found ", e);
             }
