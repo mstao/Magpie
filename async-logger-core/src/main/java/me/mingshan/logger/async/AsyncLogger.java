@@ -30,7 +30,6 @@ public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTrans
 
     @Override
     public void logMessage(E message) {
-        System.out.println("发布数据 -- " + message);
         logWithOneArgTranslator(message);
     }
 
