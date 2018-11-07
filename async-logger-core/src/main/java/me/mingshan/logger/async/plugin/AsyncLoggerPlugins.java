@@ -18,6 +18,7 @@ import me.mingshan.logger.async.common.Constants;
 import me.mingshan.logger.async.property.AsyncLoggerProperties;
 import me.mingshan.logger.async.property.AsyncLoggerProperty;
 import me.mingshan.logger.async.property.AsyncLoggerSystemProperties;
+import me.mingshan.logger.async.util.StringUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -90,10 +91,13 @@ public class AsyncLoggerPlugins<E> {
         if (property != null) {
             String implementClass = property.get();
             try {
+                if (StringUtil.isEmpty(implementClass)) {
+                    return null;
+                }
                 Class<?> cls = Class.forName(implementClass);
                 cls = cls.asSubclass(clazz);
                 Constructor constructor = cls.getConstructor();
-                    return (T) constructor.newInstance();
+                return (T) constructor.newInstance();
             } catch (ClassCastException e) {
                 throw new RuntimeException(className + " implementation is not an instance of "
                         + className + ": " + implementClass);
@@ -124,7 +128,6 @@ public class AsyncLoggerPlugins<E> {
         AsyncLoggerProperties asyncLoggerProperties = AsyncLoggerSystemProperties.getInstance();
         return asyncLoggerProperties;
     }
-
 
     @SuppressWarnings("unchecked")
     private <T> List<T> findClass(Class<T> clazz) {
