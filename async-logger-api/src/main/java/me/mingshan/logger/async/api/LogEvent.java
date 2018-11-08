@@ -16,7 +16,7 @@ package me.mingshan.logger.async.api;
 import java.io.Serializable;
 
 /**
- *
+ * Interface that logEvent.
  *
  * @author mingshan
  */

@@ -11,24 +11,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.util;
+package me.mingshan.logger.async.serialize;
+
+import me.mingshan.logger.async.serialize.protostuff.ProtostuffSerializer;
 
 /**
+ * The serializer holder.
+ *
  * @author mingshan
  */
-public class StringUtil {
+public class SerializerHolder {
+    private static final Serializer SERIALIZER = new ProtostuffSerializer();
 
-    public static boolean isEmpty(Object str) {
-        return (str == null || "".equals(str));
+    /**
+     * Get the implementation of serializer.
+     *
+     * @return the {@link Serializer} implementation
+     */
+    public static Serializer serializerImpl() {
+        return SERIALIZER;
     }
-
-    public static boolean hasLength(CharSequence str) {
-        return (str != null && str.length() > 0);
-    }
-
-    public static boolean hasLength(String str) {
-        return (str != null && !str.isEmpty());
-    }
-
-
 }

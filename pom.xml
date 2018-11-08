@@ -52,6 +52,7 @@
     <guava.version>27.0-jre</guava.version>
     <fastjson.version>1.2.51</fastjson.version>
     <caffeine.version>2.6.2</caffeine.version>
+    <protostuff.version>1.6.0</protostuff.version>
   </properties>
 
   <!-- 公共依赖 -->
@@ -102,6 +103,16 @@
         <groupId>com.github.ben-manes.caffeine</groupId>
         <artifactId>caffeine</artifactId>
         <version>${caffeine.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.protostuff</groupId>
+        <artifactId>protostuff-core</artifactId>
+        <version>${protostuff.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.protostuff</groupId>
+        <artifactId>protostuff-runtime</artifactId>
+        <version>${protostuff.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

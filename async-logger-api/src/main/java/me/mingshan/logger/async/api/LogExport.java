@@ -20,8 +20,10 @@ package me.mingshan.logger.async.api;
 public interface LogExport<E> {
 
     /**
-     * Privoders a way to export log info.
-     * @param message
+     * Exports log info via entity.
+     *
+     * @param message the entity of message
      */
     void export(E message);
+
 }

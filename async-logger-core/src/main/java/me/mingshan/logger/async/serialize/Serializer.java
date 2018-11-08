@@ -11,28 +11,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.api;
+package me.mingshan.logger.async.serialize;
 
 /**
- * Interface that logger.
+ * Interface that defines serialize operation.
  *
- * @param <T> the generics class of {@link LogEvent}
- * @param <E> the generics class of entity
+ * @author mingshan
  */
-public interface Logger<T extends LogEvent, E> {
+public interface Serializer {
 
     /**
-     * Records log info via message.
+     * Serializes the specified object to byte array.
      *
-     * @param message the entity of message
+     * @param obj the specified object
+     * @param <T> the generics class
+     * @return the byte array
      */
-    void logMessage(E message);
+    <T> byte[] writeObject(T obj);
 
     /**
-     * Records log info via byte array.
+     * Deserializes the specified byte array to object.
      *
-     * @param message the byte array of message
-     * @param clazz the message clazz
+     * @param bytes the specified byte array
+     * @param clazz the specified class
+     * @param <T> the generics class
+     * @return the object
      */
-    void logMessage(byte[] message, Class<?> clazz);
+    <T> T readObject(byte[] bytes, Class<T> clazz);
 }

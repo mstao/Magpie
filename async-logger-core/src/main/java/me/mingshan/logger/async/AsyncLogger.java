@@ -15,9 +15,11 @@ package me.mingshan.logger.async;
 
 import com.lmax.disruptor.EventTranslatorOneArg;
 import me.mingshan.logger.async.api.Logger;
+import me.mingshan.logger.async.serialize.Serializer;
+import me.mingshan.logger.async.serialize.SerializerHolder;
 
 /**
- * 日志记录器，相当于生产者
+ * The implementation of logger.
  *
  * @author mingshan
  */
@@ -32,6 +34,13 @@ public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTrans
     public void logMessage(E message) {
         logWithOneArgTranslator(message);
     }
+
+    @Override
+    public void logMessage(byte[] message, Class<?> clazz) {
+        Serializer serializer = SerializerHolder.serializerImpl();
+        //logWithOneArgTranslator((E)serializer.readObject(message, clazz));
+    }
+
 
     /**
      * 发布Event

@@ -15,6 +15,9 @@ package me.mingshan.logger.async.extension.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
+import java.util.Map;
 
 public class JsonUtils {
 
@@ -25,5 +28,14 @@ public class JsonUtils {
 
     public static String objectToString(Object source) {
         return JSON.toJSONString(source);
+    }
+
+    public static String mapToString(Map<?, ?> source) {
+        return JSON.toJSONString(source, true);
+    }
+
+    public static Map<?, ?> stringToMap(String source) {
+        JSONObject jsonObject = JSONObject.parseObject(source);
+        return jsonObject;
     }
 }
