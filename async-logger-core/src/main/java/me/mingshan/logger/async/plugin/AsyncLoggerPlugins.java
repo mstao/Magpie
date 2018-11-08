@@ -129,7 +129,7 @@ public class AsyncLoggerPlugins<E> {
     private <T> T getPluginImplementationByProperty(AsyncLoggerProperties asyncLoggerProperties,
         Class<T> clazz) {
         String className = clazz.getSimpleName();
-        String propertyName = Constants.PLUGIN_PROPERTY_PREFIX + className + "implementation";
+        String propertyName = Constants.PLUGIN_PROPERTY_PREFIX + className + ".implementation";
         AsyncLoggerProperty<String> property = asyncLoggerProperties.getString(propertyName, null);
 
         if (property != null) {
@@ -169,7 +169,7 @@ public class AsyncLoggerPlugins<E> {
      */
     private AsyncLoggerProperties resolveDynamicProperties() {
         // issue?
-        AsyncLoggerProperties asyncLoggerProperties = AsyncLoggerSystemProperties.getInstance();
+        AsyncLoggerProperties asyncLoggerProperties = AsyncLoggerFileProperties.getInstance();
         return asyncLoggerProperties;
     }
 

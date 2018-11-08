@@ -47,7 +47,7 @@ public class Constants {
     /**
      * The prefix of property.
      */
-    public static final String PLUGIN_PROPERTY_PREFIX = "asynclogger.plugin";
+    public static final String PLUGIN_PROPERTY_PREFIX = "asynclogger.plugin.";
 
     /**
      * The name of property file.
