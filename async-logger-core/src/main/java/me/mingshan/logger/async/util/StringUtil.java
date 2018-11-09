@@ -14,6 +14,8 @@
 package me.mingshan.logger.async.util;
 
 /**
+ * The util of string.
+ *
  * @author mingshan
  */
 public class StringUtil {

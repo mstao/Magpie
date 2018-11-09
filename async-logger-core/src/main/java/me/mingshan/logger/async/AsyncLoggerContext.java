@@ -14,7 +14,7 @@
 package me.mingshan.logger.async;
 
 /**
- * 异步日志启动上下文
+ * Asynchronous log startup context
  *
  * @author mingshan
  */

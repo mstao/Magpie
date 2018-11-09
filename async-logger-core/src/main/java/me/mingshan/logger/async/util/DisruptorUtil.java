@@ -20,8 +20,19 @@ import me.mingshan.logger.async.RingBufferLogEvent;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The Util of Disruptor.
+ *
+ * @author mingshan
+ */
 public class DisruptorUtil {
 
+    /**
+     * Gets the {@link WaitStrategy} implementation via {@link DisruptorWaitStrategy}.
+     *
+     * @param strategyUp the enum {@link DisruptorWaitStrategy}
+     * @return the {@link WaitStrategy} implementation
+     */
     public static WaitStrategy createWaitStrategy(DisruptorWaitStrategy strategyUp) {
         switch (strategyUp.toString()) {
             case "SLEEP":
@@ -41,6 +52,11 @@ public class DisruptorUtil {
         }
     }
 
+    /**
+     * Calculates the size of RingBuffer.
+     *
+     * @return the size of RingBuffer
+     */
     public static int calculateRingBufferSize() {
         int ringBufferSize = Constants.RINGBUFFER_DEFAULT_SIZE;
         return IntegerUtil.ceilingNextPowerOfTwo(ringBufferSize);

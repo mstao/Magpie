@@ -15,6 +15,8 @@ package me.mingshan.logger.async.api;
 
 /**
  * You can export log message to db, logstash and etc..
+ *
+ * @author mingshan
  */
 public interface LogExport {
 

@@ -16,6 +16,7 @@ package me.mingshan.logger.async.api;
 /**
  * Interface that logger.
  *
+ * @author mingshan
  */
 public interface Logger {
 

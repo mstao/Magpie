@@ -16,7 +16,7 @@ package me.mingshan.logger.async;
 import me.mingshan.logger.async.api.LogEvent;
 
 /**
- * 事件
+ * The event for disruptor.
  *
  * @author mingshan
  */

@@ -22,7 +22,7 @@ import me.mingshan.logger.async.common.Constants;
 import java.util.List;
 
 /**
- * 事件处理
+ * Handles the event that disruptor publish.
  *
  * @author mingshan
  */
@@ -41,8 +41,7 @@ public class RingBufferLogEventHandler implements
         final boolean pseudoEndOfBatch = endOfBatch || --batchCounter == 0;
 
         // Do work...
-        AsyncLoggerPlugins asyncLoggerPlugins = AsyncLoggerPlugins.getInstance();
-        List<LogExport> logExports = asyncLoggerPlugins.getlogExports();
+        List<LogExport> logExports = AsyncLoggerPlugins.getInstance().getlogExports();
         for (LogExport logExport : logExports) {
             logExport.export(event.getMessage());
         }

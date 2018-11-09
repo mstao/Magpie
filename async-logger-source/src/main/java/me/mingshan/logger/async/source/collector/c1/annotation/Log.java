@@ -22,7 +22,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 日志注解
+ * Annotation that puts it on the method to record the method's access and execution,
+ * If you want to record log via aspect, just use it.
  *
  * @author mingshan
  */
@@ -32,23 +33,23 @@ import java.lang.annotation.Target;
 public @interface Log {
 
     /**
-     * 标记日志类型，默认为{@code LogType.VISITOR}
+     * Mark the type of log，the default value is {@code LogType.VISITOR}
      *
-     * @return 日志类型
+     * @return the type of log
      */
     LogType type() default LogType.VISITOR;
 
     /**
-     * 是否记录参数，默认为{@code true}
+     * Whether to record the parameters of method，the default value is{@code true}.
      *
-     * @return 返回{@code true}，记录参数，返回{@code false}, 不记录
+     * @return If returns {@code true}，records method parameters，returns {@code false}, no record
      */
     boolean recordParams() default true;
 
     /**
-     * 是否记录返回结果，默认为{@code true}
+     * Whether to record the result of method，the default value is{@code true}.
      *
-     * @return 返回{@code true}，记录返回结果，返回{@code false}, 不记录
+     * @return If returns {@code true}，records the result of method，returns {@code false}, no record
      */
     boolean recordResult() default true;
 }

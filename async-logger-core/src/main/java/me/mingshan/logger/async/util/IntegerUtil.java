@@ -13,6 +13,11 @@
  */
 package me.mingshan.logger.async.util;
 
+/**
+ * The util of Integer.
+ *
+ * @author mingshan
+ */
 public class IntegerUtil {
     private static final int BITS_PER_INT = 32;
 

@@ -17,6 +17,9 @@ import me.mingshan.logger.async.api.LogExport;
 
 import java.util.Arrays;
 
+/**
+ * The default implementation of exporting log.
+ */
 public class DefaultLogExportImpl implements LogExport {
 
     @Override

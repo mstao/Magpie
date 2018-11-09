@@ -16,7 +16,7 @@ package me.mingshan.logger.async.serialize;
 import me.mingshan.logger.async.serialize.protostuff.ProtostuffSerializer;
 
 /**
- * The serializer holder.
+ * The serializer holder, gets the implementation of {@link Serializer}.
  *
  * @author mingshan
  */

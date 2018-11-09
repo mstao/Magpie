@@ -16,6 +16,8 @@ package me.mingshan.logger.async.util;
 import java.util.Objects;
 
 /**
+ * The Util of class.
+ *
  * @author mingshan
  */
 public class ClassUtil {

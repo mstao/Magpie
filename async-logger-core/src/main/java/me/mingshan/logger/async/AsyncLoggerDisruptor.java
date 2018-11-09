@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * 封装Disruptor，提供常用操作
+ * Encapsulates the Disruptor, providing common operations.
  *
  * @author mingshan
  */
@@ -34,13 +34,13 @@ public class AsyncLoggerDisruptor {
     }
 
     /**
-     * 启动Disruptor
+     * Start Disruptor
      */
     public synchronized void start() {
         if (disruptor != null) {
             return;
         }
-        // 创建线程工厂
+
         ThreadFactory threadFactory = new ThreadFactory() {
             private final AtomicInteger mCount = new AtomicInteger(1);
 
@@ -66,7 +66,7 @@ public class AsyncLoggerDisruptor {
     }
 
     /**
-     * 关闭Disruptor
+     * Close Disruptor
      */
     public void stop() {
         disruptor.shutdown();

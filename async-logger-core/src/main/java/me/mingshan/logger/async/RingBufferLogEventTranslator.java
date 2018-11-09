@@ -14,10 +14,12 @@
 package me.mingshan.logger.async;
 
 import com.lmax.disruptor.EventTranslator;
+import com.lmax.disruptor.RingBuffer;
 
 /**
+ * Implementations translate (write) data representations into events claimed from the {@link RingBuffer}.
  *
- * @author
+ * @author mingshan
  */
 public class RingBufferLogEventTranslator implements EventTranslator<RingBufferLogEvent> {
     private byte[] message;

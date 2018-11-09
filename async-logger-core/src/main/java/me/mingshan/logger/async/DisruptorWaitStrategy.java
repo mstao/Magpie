@@ -14,7 +14,7 @@
 package me.mingshan.logger.async;
 
 /**
- * Alternative Wait Strategies
+ * Alternative Wait Strategies.
  *
  * @author mingshan
  */

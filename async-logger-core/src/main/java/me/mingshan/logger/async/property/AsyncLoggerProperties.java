@@ -14,7 +14,7 @@
 package me.mingshan.logger.async.property;
 
 /**
- *
+ * Interface that providers the common methods to get {@link AsyncLoggerProperty}.
  *
  * @author mingshan
  */

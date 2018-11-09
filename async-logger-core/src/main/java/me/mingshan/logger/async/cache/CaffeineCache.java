@@ -18,6 +18,7 @@ import java.util.Objects;
 /**
  * The cache implementation with Caffeine.
  *
+ * @author mingshan
  */
 public class CaffeineCache implements Cache {
     private com.github.benmanes.caffeine.cache.Cache<Object, Object> cache;

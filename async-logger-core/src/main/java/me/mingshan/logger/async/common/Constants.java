@@ -13,34 +13,40 @@
  */
 package me.mingshan.logger.async.common;
 
+/**
+ * Constants for core module.
+ *
+ * @author mingshan
+ */
 public class Constants {
+
     /**
-     * RINGBUFFER 最小值
+     * RINGBUFFER minimum value.
      */
     public static final int RINGBUFFER_MIN_SIZE = 128;
 
     /**
-     * RINGBUFFER 默认值
+     * RINGBUFFER default value.
      */
     public static final int RINGBUFFER_DEFAULT_SIZE = 256 * 1024;
 
     /**
-     * RINGBUFFER NO GC 默认值
+     * RINGBUFFER NO GC default value.
      */
     public static final int RINGBUFFER_NO_GC_DEFAULT_SIZE = 4 * 1024;
 
     /**
-     * BlockingWaitStrategy超时时间
+     * BlockingWaitStrategy time-out period.
      */
     public static final long BLOCKING_WAIT_STRAGETY_TIMEOUT_MILLIS = 123L;
 
     /**
-     * 导出日志默认实现类全限定名
+     * The fully qualified name of the default implementation class for exporting log.
      */
     public static final String DEFAULT_LOG_EXPORT_IMPL = "me.mingshan.logger.async.DefaultLogExportImpl";
 
     /**
-     * {@code SequenceReportingEventHandler} 批处理Event的阈值
+     * {@code SequenceReportingEventHandler} The thresholds for the batch Event.
      */
     public static final int NOTIFY_PROGRESS_THRESHOLD = 50;
 

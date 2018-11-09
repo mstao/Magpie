@@ -31,8 +31,9 @@ public class AsyncLogger implements Logger, EventTranslatorOneArg<RingBufferLogE
     }
 
     /**
-     * 发布Event
-     * @param message
+     * Log message.
+     *
+     * @param message the message
      */
     private void logWithOneArgTranslator(byte[] message) {
         // 使用{@link RingBuffer#tryPublishEvent} 会先尝试放入event，当RingBuffer会返回false，
@@ -45,8 +46,9 @@ public class AsyncLogger implements Logger, EventTranslatorOneArg<RingBufferLogE
     }
 
     /**
-     * 处理队列满的情况
-     * @param message
+     * Deals with queue full cases.
+     *
+     * @param message the message
      */
     private void handleRingBufferFull(byte[] message) {
         // TODO
@@ -55,7 +57,6 @@ public class AsyncLogger implements Logger, EventTranslatorOneArg<RingBufferLogE
 
     @Override
     public void translateTo(RingBufferLogEvent event, long sequence, byte[] arg) {
-        // 封装数据
         Thread currentThread = Thread.currentThread();
         event.setValues(arg, currentThread.getId(), currentThread.getName());
     }

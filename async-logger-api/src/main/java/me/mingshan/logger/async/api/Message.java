@@ -16,6 +16,11 @@ package me.mingshan.logger.async.api;
 import java.io.Serializable;
 import java.util.Arrays;
 
+/**
+ * Providers a reference entity for logger.
+ *
+ * @author mingshan
+ */
 public class Message implements Serializable {
     private String serviceName;
     private String methodName;

@@ -16,7 +16,7 @@ package me.mingshan.logger.async;
 import com.lmax.disruptor.ExceptionHandler;
 
 /**
- * 异步日志异常处理
+ * Handles exception of asynchronous log.
  *
  * @author mingshan
  */

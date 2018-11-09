@@ -73,16 +73,16 @@ public class LoggerAspect {
         Log logAnnotation = getAnnotation(joinPoint,
                 me.mingshan.logger.async.source.collector.c1.annotation.Log.class)
                 .orElseGet(null);
-        // 判断日志注解是否存在
+        // Determines if log annotations exist
         if (logAnnotation != null) {
-            // 获取接口
+            // Gets interfaces of class
             Class[] intfs = joinPoint.getTarget().getClass().getInterfaces();
-            // 处理接口
+            // Handles interfaces
             String serviceName = intfs.length > 0 ? intfs[0].getName()
                     : joinPoint.getTarget().getClass().getName();
-            // 获取方法名
+            // Gets the name of method
             String methodName = method.getName();
-            // 判断参数获取
+            // Determines if the parameters are obtained
             Object[] params = null;
             if (logAnnotation.recordParams()) {
                 params = getParameters(joinPoint);
@@ -94,13 +94,13 @@ public class LoggerAspect {
                 result = joinPoint.proceed();
                 executedTime = System.currentTimeMillis() - startTime;
             } catch (Throwable t) {
-                // 记录异常信息
+                // Records the message of exception
                 writeMessage(serviceName, methodName, params, logAnnotation.recordResult() ? result : null,
                         executedTime, Level.ERROR, t);
                 throw t;
             }
 
-            // 执行完毕，记录日志
+            // Method is done, records the message of log
             writeMessage(serviceName, methodName, params, logAnnotation.recordResult() ? result : null,
                     executedTime, Level.INFO, null);
         } else {
