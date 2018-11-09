@@ -26,8 +26,8 @@ import java.util.List;
  *
  * @author mingshan
  */
-public class RingBufferLogEventHandler<E> implements
-        SequenceReportingEventHandler<RingBufferLogEvent<E>> {
+public class RingBufferLogEventHandler implements
+        SequenceReportingEventHandler<RingBufferLogEvent> {
     private Sequence sequenceCallback;
     private int batchCounter = Constants.NOTIFY_PROGRESS_THRESHOLD;
 
@@ -37,13 +37,13 @@ public class RingBufferLogEventHandler<E> implements
     }
 
     @Override
-    public void onEvent(RingBufferLogEvent<E> event, long sequence, boolean endOfBatch) throws Exception {
+    public void onEvent(RingBufferLogEvent event, long sequence, boolean endOfBatch) throws Exception {
         final boolean pseudoEndOfBatch = endOfBatch || --batchCounter == 0;
 
         // Do work...
-        AsyncLoggerPlugins<E> asyncLoggerPlugins = AsyncLoggerPlugins.getInstance();
-        List<LogExport<E>> logExports = asyncLoggerPlugins.getlogExports();
-        for (LogExport<E> logExport : logExports) {
+        AsyncLoggerPlugins asyncLoggerPlugins = AsyncLoggerPlugins.getInstance();
+        List<LogExport> logExports = asyncLoggerPlugins.getlogExports();
+        for (LogExport logExport : logExports) {
             logExport.export(event.getMessage());
         }
         event.clear();

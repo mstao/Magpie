@@ -35,7 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @author mingshan
  */
 public class AsyncLoggerPlugins<E> {
-    private final AtomicReference<List<LogExport<E>>> logExports = new AtomicReference<>();
+    private final AtomicReference<List<LogExport>> logExports = new AtomicReference<>();
     private final AsyncLoggerProperties asyncLoggerProperties;
 
     /**
@@ -78,10 +78,10 @@ public class AsyncLoggerPlugins<E> {
      * @return the implementations of {@link LogExport}
      */
     @SuppressWarnings("unchecked")
-    public List<LogExport<E>> getlogExports() {
+    public List<LogExport> getlogExports() {
         if (logExports.get() == null) {
             Object impl = getPluginImplementation(LogExport.class);
-            logExports.compareAndSet(null, (List<LogExport<E>>) impl);
+            logExports.compareAndSet(null, (List<LogExport>) impl);
         }
 
         return logExports.get();
@@ -92,7 +92,7 @@ public class AsyncLoggerPlugins<E> {
      *
      * @param impl the implementation of {@link LogExport}
      */
-    public void registerLogExports(List<LogExport<E>> impl) {
+    public void registerLogExports(List<LogExport> impl) {
         if (!logExports.compareAndSet(null, impl)) {
             throw new IllegalStateException("Another LogExport was already registered.");
         }
@@ -107,7 +107,7 @@ public class AsyncLoggerPlugins<E> {
      */
     private <T> List<T> getPluginImplementation(Class<T> clazz) {
         T t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-        System.out.println("通过 property 找到 " + clazz);
+        System.out.println("Find by property: " + clazz.getSimpleName() + " implementation："  + t);
         if (t != null) {
             List<T> objs = new ArrayList<>();
             objs.add(t);
@@ -187,6 +187,7 @@ public class AsyncLoggerPlugins<E> {
         ServiceLoader<T> serviceLoader =  ServiceLoader.load(clazz);
         for (T t : serviceLoader) {
             if (t != null) {
+                System.out.println("Find by SPI: " + clazz.getSimpleName() + " implementation："  + t);
                 objs.add(t);
             }
         }
@@ -196,6 +197,7 @@ public class AsyncLoggerPlugins<E> {
             T result = null;
             try {
                 result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
+                System.out.println("Find by Default: " + clazz.getSimpleName() + " implementation："  + result);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Class " + clazz + " not found ", e);
             }

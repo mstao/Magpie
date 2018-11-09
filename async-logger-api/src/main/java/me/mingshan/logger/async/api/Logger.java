@@ -16,23 +16,21 @@ package me.mingshan.logger.async.api;
 /**
  * Interface that logger.
  *
- * @param <T> the generics class of {@link LogEvent}
- * @param <E> the generics class of entity
  */
-public interface Logger<T extends LogEvent, E> {
+public interface Logger {
 
     /**
      * Records log info via message.
      *
      * @param message the entity of message
+     * @param <E> the generics class
      */
-    void logMessage(E message);
+    <E> void logMessage(E message);
 
     /**
      * Records log info via byte array.
      *
      * @param message the byte array of message
-     * @param clazz the message clazz
      */
-    void logMessage(byte[] message, Class<?> clazz);
+    void logMessage(byte[] message);
 }

@@ -18,7 +18,7 @@ package me.mingshan.logger.async;
  *
  * @author mingshan
  */
-public class AsyncLoggerContext<E> {
+public class AsyncLoggerContext {
     private static final AsyncLoggerDisruptor loggerDisruptor = new AsyncLoggerDisruptor();
     private static AsyncLogger asyncLogger;
 
@@ -31,11 +31,11 @@ public class AsyncLoggerContext<E> {
     }
 
     @SuppressWarnings("unchecked")
-    public static<E> AsyncLogger<E> getAsyncLogger() {
+    public static AsyncLogger getAsyncLogger() {
         if (asyncLogger == null) {
             synchronized (AsyncLogger.class) {
                 if (asyncLogger == null) {
-                    asyncLogger = new AsyncLogger<E>(loggerDisruptor);
+                    asyncLogger = new AsyncLogger(loggerDisruptor);
                 }
             }
         }

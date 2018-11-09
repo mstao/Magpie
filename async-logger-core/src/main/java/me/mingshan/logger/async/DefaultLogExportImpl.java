@@ -15,9 +15,12 @@ package me.mingshan.logger.async;
 
 import me.mingshan.logger.async.api.LogExport;
 
-public class DefaultLogExportImpl<E> implements LogExport<E> {
+import java.util.Arrays;
+
+public class DefaultLogExportImpl implements LogExport {
+
     @Override
-    public void export(E message) {
-        System.out.println(message);
+    public void export(byte[] message) {
+        System.out.println(Arrays.toString(message));
     }
 }

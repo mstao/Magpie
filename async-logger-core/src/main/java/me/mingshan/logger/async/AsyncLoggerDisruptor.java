@@ -26,10 +26,10 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  * @author mingshan
  */
-public class AsyncLoggerDisruptor<E> {
-    private volatile Disruptor<RingBufferLogEvent<E>> disruptor;
+public class AsyncLoggerDisruptor {
+    private volatile Disruptor<RingBufferLogEvent> disruptor;
 
-    public Disruptor<RingBufferLogEvent<E>> getDisruptor() {
+    public Disruptor<RingBufferLogEvent> getDisruptor() {
         return disruptor;
     }
 
@@ -52,14 +52,14 @@ public class AsyncLoggerDisruptor<E> {
 
         int ringBufferSize = DisruptorUtil.calculateRingBufferSize();
         final WaitStrategy waitStrategy = DisruptorUtil.createWaitStrategy(DisruptorWaitStrategy.TIMEOUT);
-        EventFactory factory = RingBufferLogEvent<E>::new;
-        disruptor = new Disruptor<RingBufferLogEvent<E>>(factory,
+        EventFactory factory = RingBufferLogEvent::new;
+        disruptor = new Disruptor<RingBufferLogEvent>(factory,
                 ringBufferSize, threadFactory, ProducerType.SINGLE, waitStrategy);
 
-        final ExceptionHandler<RingBufferLogEvent<E>> errorHandler = new AsyncLoggerDefaultExceptionHandler<>();
+        final ExceptionHandler<RingBufferLogEvent> errorHandler = new AsyncLoggerDefaultExceptionHandler();
         disruptor.setDefaultExceptionHandler(errorHandler);
 
-        final EventHandler[] handlers = {new RingBufferLogEventHandler<E>()};
+        final EventHandler[] handlers = {new RingBufferLogEventHandler()};
         disruptor.handleEventsWith(handlers);
         disruptor.start();
         System.out.println("Disruptor started");
@@ -72,7 +72,7 @@ public class AsyncLoggerDisruptor<E> {
         disruptor.shutdown();
     }
 
-    public boolean tryPublish(RingBufferLogEventTranslator<E> translator) {
+    public boolean tryPublish(RingBufferLogEventTranslator translator) {
         try {
             return disruptor.getRingBuffer().tryPublishEvent(translator);
         } catch (final NullPointerException npe) {

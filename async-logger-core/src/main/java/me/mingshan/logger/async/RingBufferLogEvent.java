@@ -20,14 +20,14 @@ import me.mingshan.logger.async.api.LogEvent;
  *
  * @author mingshan
  */
-public class RingBufferLogEvent<E> implements LogEvent<E> {
+public class RingBufferLogEvent implements LogEvent {
     private long threadId;
     private String threadName;
-    private E message;
+    private byte[] message;
     private boolean endOfBatch;
 
     @Override
-    public E getMessage() {
+    public byte[] getMessage() {
         return this.message;
     }
 
@@ -46,7 +46,7 @@ public class RingBufferLogEvent<E> implements LogEvent<E> {
         return this.isEndOfBatch();
     }
 
-    public void setValues(E message, long threadId, String threadName) {
+    public void setValues(byte[] message, long threadId, String threadName) {
         this.message = message;
         this.threadId = threadId;
         this.threadName = threadName;

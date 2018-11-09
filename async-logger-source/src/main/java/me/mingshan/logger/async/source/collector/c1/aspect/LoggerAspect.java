@@ -121,7 +121,7 @@ public class LoggerAspect {
                 .orElseGet(null);
 
         AsyncLoggerContext.start();
-        AsyncLogger<Message> asyncLogger = AsyncLoggerContext.getAsyncLogger();
+        AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
 
         Message message = new Message();
         message.setServiceName(serviceName);

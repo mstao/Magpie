@@ -56,8 +56,13 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
         String value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(Constants.PLUGIN_PROPERTY_FILE_NAME);
-            value = String.valueOf(properties.get(name));
-            caffeineCache.put("String#" + name, value);
+            Object resource = properties.get(name);
+            if (resource == null) {
+                value = null;
+            } else {
+                value = String.valueOf(resource);
+                caffeineCache.put("String#" + name, value);
+            }
         } else {
             value = String.valueOf(cachedValue);
         }

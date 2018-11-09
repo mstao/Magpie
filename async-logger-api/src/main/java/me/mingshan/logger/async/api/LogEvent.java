@@ -20,13 +20,13 @@ import java.io.Serializable;
  *
  * @author mingshan
  */
-public interface LogEvent<E> extends Serializable {
+public interface LogEvent extends Serializable {
 
     /**
      *
      * @return The
      */
-    E getMessage();
+    byte[] getMessage();
 
     /**
      *

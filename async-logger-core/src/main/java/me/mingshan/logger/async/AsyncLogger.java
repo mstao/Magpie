@@ -23,30 +23,18 @@ import me.mingshan.logger.async.serialize.SerializerHolder;
  *
  * @author mingshan
  */
-public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTranslatorOneArg<RingBufferLogEvent<E>, E> {
-    private final AsyncLoggerDisruptor<E> loggerDisruptor;
+public class AsyncLogger implements Logger, EventTranslatorOneArg<RingBufferLogEvent, byte[]> {
+    private final AsyncLoggerDisruptor loggerDisruptor;
 
-    public AsyncLogger(AsyncLoggerDisruptor<E> loggerDisruptor) {
+    public AsyncLogger(AsyncLoggerDisruptor loggerDisruptor) {
         this.loggerDisruptor = loggerDisruptor;
     }
-
-    @Override
-    public void logMessage(E message) {
-        logWithOneArgTranslator(message);
-    }
-
-    @Override
-    public void logMessage(byte[] message, Class<?> clazz) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        //logWithOneArgTranslator((E)serializer.readObject(message, clazz));
-    }
-
 
     /**
      * 发布Event
      * @param message
      */
-    private void logWithOneArgTranslator(E message) {
+    private void logWithOneArgTranslator(byte[] message) {
         // 使用{@link RingBuffer#tryPublishEvent} 会先尝试放入event，当RingBuffer会返回false，
         // 放入失败，此时需要进行处理
 //        if (!this.loggerDisruptor.getDisruptor().getRingBuffer()
@@ -60,15 +48,27 @@ public class AsyncLogger<E> implements Logger<RingBufferLogEvent, E>, EventTrans
      * 处理队列满的情况
      * @param message
      */
-    private void handleRingBufferFull(E message) {
+    private void handleRingBufferFull(byte[] message) {
         // TODO
         System.out.println("队列满了--- " + message);
     }
 
     @Override
-    public void translateTo(RingBufferLogEvent<E> event, long sequence, E arg) {
+    public void translateTo(RingBufferLogEvent event, long sequence, byte[] arg) {
         // 封装数据
         Thread currentThread = Thread.currentThread();
         event.setValues(arg, currentThread.getId(), currentThread.getName());
+    }
+
+    @Override
+    public <E> void logMessage(E message) {
+        Serializer serializer = SerializerHolder.serializerImpl();
+        byte[] body = serializer.writeObject(message);
+        logMessage(body);
+    }
+
+    @Override
+    public void logMessage(byte[] message) {
+        logWithOneArgTranslator(message);
     }
 }

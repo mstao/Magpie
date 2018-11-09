@@ -15,15 +15,14 @@ package me.mingshan.logger.async.api;
 
 /**
  * You can export log message to db, logstash and etc..
- * @param <E> The message of log.
  */
-public interface LogExport<E> {
+public interface LogExport {
 
     /**
      * Exports log info via entity.
      *
-     * @param message the entity of message
+     * @param message the byte array of message
      */
-    void export(E message);
+    void export(byte[] message);
 
 }
