@@ -14,9 +14,11 @@
 package me.mingshan.logger.async.property;
 
 import me.mingshan.logger.async.cache.Cache;
+import me.mingshan.logger.async.cache.CachePrefix;
 import me.mingshan.logger.async.cache.CaffeineCache;
 import me.mingshan.logger.async.common.Constants;
 import me.mingshan.logger.async.util.PropertyUtil;
+import me.mingshan.logger.async.util.StringUtil;
 
 import java.util.Properties;
 
@@ -52,26 +54,29 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
     @Override
     public AsyncLoggerProperty<String> getString(String name, String fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get("String#" + name);
-        String value;
+        Object cachedValue = caffeineCache.get(CachePrefix.STRING.getValue() + name);
+        String value = null;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(Constants.PLUGIN_PROPERTY_FILE_NAME);
             Object resource = properties.get(name);
-            if (resource == null) {
-                value = null;
-            } else {
-                value = String.valueOf(resource);
-                caffeineCache.put("String#" + name, value);
+            if (resource != null) {
+                String tempValue = String.valueOf(resource);
+                if (!StringUtil.isEmpty(tempValue)) {
+                    value = tempValue;
+                    caffeineCache.put(CachePrefix.STRING.getValue() + name, value);
+                }
             }
         } else {
             value = String.valueOf(cachedValue);
         }
 
+
+        final String endValue = value;
         return new AsyncLoggerProperty<String>() {
 
             @Override
             public String get() {
-                return value;
+                return endValue;
             }
 
             @Override
@@ -84,12 +89,12 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
     @Override
     public AsyncLoggerProperty<Integer> getInteger(String name, Integer fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get("Integer#" + name);
+        Object cachedValue = caffeineCache.get(CachePrefix.INTEGER.getValue() + name);
         Integer value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(Constants.PLUGIN_PROPERTY_FILE_NAME);
             value = Integer.valueOf(properties.get(name).toString());
-            caffeineCache.put("Integer#" + name, value);
+            caffeineCache.put(CachePrefix.INTEGER.getValue() + name, value);
         } else {
             value = Integer.valueOf(cachedValue.toString());
         }
@@ -111,12 +116,12 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
     @Override
     public AsyncLoggerProperty<Boolean> getBoolean(String name, Boolean fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get("Boolean#" + name);
+        Object cachedValue = caffeineCache.get(CachePrefix.BOOLEAN.getValue() + name);
         Boolean value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(Constants.PLUGIN_PROPERTY_FILE_NAME);
             value = Boolean.valueOf(properties.get(name).toString());
-            caffeineCache.put("Boolean#" + name, value);
+            caffeineCache.put(CachePrefix.BOOLEAN.getValue() + name, value);
         } else {
             value = Boolean.valueOf(cachedValue.toString());
         }
@@ -138,12 +143,12 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
     @Override
     public AsyncLoggerProperty<Long> getLong(String name, Long fallback) {
         Cache caffeineCache = CaffeineCache.getInstance();
-        Object cachedValue = caffeineCache.get("Long#" + name);
+        Object cachedValue = caffeineCache.get(CachePrefix.LONG.getValue() + name);
         Long value;
         if (cachedValue == null) {
             Properties properties = PropertyUtil.loadProperties(Constants.PLUGIN_PROPERTY_FILE_NAME);
             value = Long.valueOf(properties.get(name).toString());
-            caffeineCache.put("Long#" + name, value);
+            caffeineCache.put(CachePrefix.LONG.getValue() + name, value);
         } else {
             value = Long.valueOf(cachedValue.toString());
         }

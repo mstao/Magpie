@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class AsyncLoggerPlugins<E> {
     private final AtomicReference<List<LogExport>> logExports = new AtomicReference<>();
-    private final AsyncLoggerProperties asyncLoggerProperties;
+    private AsyncLoggerProperties asyncLoggerProperties;
 
     /**
      * Inner class for lazy load.
@@ -60,7 +60,7 @@ public class AsyncLoggerPlugins<E> {
      * No Public
      */
     private AsyncLoggerPlugins() {
-        asyncLoggerProperties = resolveDynamicProperties();
+        asyncLoggerProperties = resolveDynamicProperties(LoadConfigType.SYSTEM);
     }
 
     /**
@@ -80,8 +80,8 @@ public class AsyncLoggerPlugins<E> {
     @SuppressWarnings("unchecked")
     public List<LogExport> getlogExports() {
         if (logExports.get() == null) {
-            Object impl = getPluginImplementation(LogExport.class);
-            logExports.compareAndSet(null, (List<LogExport>) impl);
+            List<LogExport> impl = getPluginImplementation(LogExport.class);
+            logExports.compareAndSet(null, impl);
         }
 
         return logExports.get();
@@ -106,12 +106,23 @@ public class AsyncLoggerPlugins<E> {
      * @return the implementation of plugin
      */
     private <T> List<T> getPluginImplementation(Class<T> clazz) {
+        // Gets configuration via system property.
         T t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-        System.out.println("Find by property: " + clazz.getSimpleName() + " implementation："  + t);
+        System.out.println("Find by system property: " + clazz.getSimpleName() + " implementation："  + t);
         if (t != null) {
             List<T> objs = new ArrayList<>();
             objs.add(t);
             return objs;
+        } else {
+            // Gets configuration via file property.
+            asyncLoggerProperties = resolveDynamicProperties(LoadConfigType.FILE);
+            t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
+            System.out.println("Find by file property: " + clazz.getSimpleName() + " implementation："  + t);
+            if (t != null) {
+                List<T> objs = new ArrayList<>();
+                objs.add(t);
+                return objs;
+            }
         }
 
         return findClass(clazz);
@@ -167,9 +178,19 @@ public class AsyncLoggerPlugins<E> {
      *
      * @return {@code syncLoggerProperties} implementation
      */
-    private AsyncLoggerProperties resolveDynamicProperties() {
-        // issue?
-        AsyncLoggerProperties asyncLoggerProperties = AsyncLoggerFileProperties.getInstance();
+    private AsyncLoggerProperties resolveDynamicProperties(LoadConfigType type) {
+        AsyncLoggerProperties asyncLoggerProperties;
+
+        switch (type) {
+            case SYSTEM:
+                asyncLoggerProperties = AsyncLoggerSystemProperties.getInstance();
+                break;
+            case FILE:
+                asyncLoggerProperties = AsyncLoggerFileProperties.getInstance();
+                break;
+            default: throw new RuntimeException("Can not find the type of loading configuration.");
+        }
+
         return asyncLoggerProperties;
     }
 
@@ -194,7 +215,7 @@ public class AsyncLoggerPlugins<E> {
 
         // If property and spi are null, chooses the default implementation.
         if (objs.isEmpty()) {
-            T result = null;
+            T result;
             try {
                 result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
                 System.out.println("Find by Default: " + clazz.getSimpleName() + " implementation："  + result);
