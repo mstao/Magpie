@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.mingshan.logger.async</groupId>
   <artifactId>asynchronous-logger-component</artifactId>
@@ -41,8 +41,7 @@
   </scm>
 
   <inceptionYear>2018</inceptionYear>
-
-  <!--集中管理版本号-->
+  
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -57,7 +56,6 @@
     <protostuff.version>1.6.0</protostuff.version>
   </properties>
 
-  <!-- 公共依赖 -->
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -132,7 +130,6 @@
   <build>
     <finalName>${project.artifactId}</finalName>
     <plugins>
-      <!-- 资源文件拷贝 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
@@ -140,7 +137,6 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-      <!-- java编译插件 -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
