@@ -24,9 +24,7 @@ import me.mingshan.logger.async.util.StringUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ServiceLoader;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -103,25 +101,26 @@ public class AsyncLoggerPlugins<E> {
      *
      * @param clazz the class of plugin
      * @param <T> the generics class
-     * @return the implementation of plugin
+     * @return the implementations of plugin
      */
     private <T> List<T> getPluginImplementation(Class<T> clazz) {
+        Objects.requireNonNull(clazz);
         // Gets configuration via system property.
-        T t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-        System.out.println("Find by system property: " + clazz.getSimpleName() + " implementation："  + t);
-        if (t != null) {
-            List<T> objs = new ArrayList<>();
-            objs.add(t);
-            return objs;
+        List<T> ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
+        System.out.println("Find plugin " +  clazz.getSimpleName() + " by system property, implementations："
+                + ts.size());
+
+        if (ts.size() > 0) {
+            return ts;
         } else {
             // Gets configuration via file property.
             asyncLoggerProperties = resolveDynamicProperties(LoadConfigType.FILE);
-            t = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-            System.out.println("Find by file property: " + clazz.getSimpleName() + " implementation："  + t);
-            if (t != null) {
-                List<T> objs = new ArrayList<>();
-                objs.add(t);
-                return objs;
+            ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
+            System.out.println("Find plugin " +  clazz.getSimpleName() + " by file property, implementations："
+                    + ts.size());
+
+            if (ts.size() > 0) {
+                return ts;
             }
         }
 
@@ -137,40 +136,52 @@ public class AsyncLoggerPlugins<E> {
      * @return the implementation
      */
     @SuppressWarnings("unchecked")
-    private <T> T getPluginImplementationByProperty(AsyncLoggerProperties asyncLoggerProperties,
+    private <T> List<T> getPluginImplementationByProperty(AsyncLoggerProperties asyncLoggerProperties,
         Class<T> clazz) {
         String className = clazz.getSimpleName();
         String propertyName = Constants.PLUGIN_PROPERTY_PREFIX + className + ".implementation";
         AsyncLoggerProperty<String> property = asyncLoggerProperties.getString(propertyName, null);
 
         if (property != null) {
-            String implementClass = property.get();
-            try {
-                if (StringUtil.isEmpty(implementClass)) {
-                    return null;
+            List<T> values = new ArrayList<>();
+            // Notice, considers that there are more than one implementations for a plugin.
+            String implementClassStr = property.get();
+            String[] implementClasses = StringUtil.split(implementClassStr, Constants.PLUGIN_PROPERTY_MULTI_DEFAULT_SEPARATOR);
+            if (implementClasses != null) {
+                for (String implementClass : implementClasses) {
+                    try {
+                        if (StringUtil.isEmpty(implementClass)) {
+                            return null;
+                        }
+                        Class<?> cls = Class.forName(implementClass);
+                        cls = cls.asSubclass(clazz);
+                        Constructor constructor = cls.getConstructor();
+                        T t = (T) constructor.newInstance();
+                        values.add(t);
+                    } catch (ClassCastException e) {
+                        throw new RuntimeException(className + " implementation is not an instance of "
+                                + className + ": " + implementClass);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(className + " implementation class not found: " + implementClass, e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(className + " implementation not able to be instantiated: "
+                                + implementClass, e);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(className + " implementation not able to be accessed: " + implementClass, e);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException(className + " implementation class can't get constructor: ", e);
+                    } catch (InvocationTargetException e) {
+                        throw new RuntimeException(className + " implementation class get instance failed: ", e);
+                    }
                 }
-                Class<?> cls = Class.forName(implementClass);
-                cls = cls.asSubclass(clazz);
-                Constructor constructor = cls.getConstructor();
-                return (T) constructor.newInstance();
-            } catch (ClassCastException e) {
-                throw new RuntimeException(className + " implementation is not an instance of "
-                        + className + ": " + implementClass);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(className + " implementation class not found: " + implementClass, e);
-            } catch (InstantiationException e) {
-                throw new RuntimeException(className + " implementation not able to be instantiated: "
-                        + implementClass, e);
-            } catch (IllegalAccessException e) {
-                throw new RuntimeException(className + " implementation not able to be accessed: " + implementClass, e);
-            } catch (NoSuchMethodException e) {
-                throw new RuntimeException(className + " implementation class can't get constructor: ", e);
-            } catch (InvocationTargetException e) {
-                throw new RuntimeException(className + " implementation class get instance failed: ", e);
+
+                return values;
+            } else {
+                return Collections.EMPTY_LIST;
             }
         }
 
-        return null;
+        return Collections.EMPTY_LIST;
     }
 
     /**
@@ -208,7 +219,7 @@ public class AsyncLoggerPlugins<E> {
         ServiceLoader<T> serviceLoader =  ServiceLoader.load(clazz);
         for (T t : serviceLoader) {
             if (t != null) {
-                System.out.println("Find by SPI: " + clazz.getSimpleName() + " implementation："  + t);
+                System.out.println("Find plugin " +  clazz.getSimpleName() + " by SPI, implementation："  + t);
                 objs.add(t);
             }
         }
@@ -218,7 +229,7 @@ public class AsyncLoggerPlugins<E> {
             T result;
             try {
                 result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
-                System.out.println("Find by Default: " + clazz.getSimpleName() + " implementation："  + result);
+                System.out.println("Find plugin " +  clazz.getSimpleName() + " by Default, implementation："  + result);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Class " + clazz + " not found ", e);
             }

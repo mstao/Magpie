@@ -53,4 +53,9 @@ public class Constants {
      * The name of property file.
      */
     public static final String PLUGIN_PROPERTY_FILE_NAME = "asynclogger.properties";
+
+    /**
+     * The default separator of multi implementations for a plugin.
+     */
+    public static final String PLUGIN_PROPERTY_MULTI_DEFAULT_SEPARATOR = ",";
 }
