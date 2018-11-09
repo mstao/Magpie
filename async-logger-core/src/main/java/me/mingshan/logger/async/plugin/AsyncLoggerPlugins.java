@@ -108,7 +108,7 @@ public class AsyncLoggerPlugins<E> {
         // Gets configuration via system property.
         List<T> ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
         System.out.println("Find plugin " +  clazz.getSimpleName() + " by system property, implementations："
-                + ts.size());
+                + (ts != null ? Arrays.toString(ts.toArray()) : ""));
 
         if (ts.size() > 0) {
             return ts;
@@ -117,8 +117,7 @@ public class AsyncLoggerPlugins<E> {
             asyncLoggerProperties = resolveDynamicProperties(LoadConfigType.FILE);
             ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
             System.out.println("Find plugin " +  clazz.getSimpleName() + " by file property, implementations："
-                    + ts.size());
-
+                    + (ts != null ? Arrays.toString(ts.toArray()) : ""));
             if (ts.size() > 0) {
                 return ts;
             }
