@@ -17,6 +17,23 @@
 
 [Java `1.8`](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and above.
 
+### How to use?
+
+```
+// 1. Start the context of asynclogger
+AsyncLoggerContext.start();
+// 2. Get asynclogger
+AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
+// Record messages
+for (int i = 0; i < 2; i++) {
+    Message message = new Message();
+    message.setServiceName("aa " + i);
+    asyncLogger.logMessage(message);
+}
+// Close the context of asynclogger
+AsyncLoggerContext.stop();
+```
+
 ### Documents
 
 See [me](http://mingshan.me/asynchronous-logger-component/)
