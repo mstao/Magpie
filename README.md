@@ -24,13 +24,13 @@
 AsyncLoggerContext.start();
 // 2. Get asynclogger
 AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
-// Record messages
+// 3. Record messages
 for (int i = 0; i < 2; i++) {
     Message message = new Message();
     message.setServiceName("aa " + i);
     asyncLogger.logMessage(message);
 }
-// Close the context of asynclogger
+// 4. Close the context of asynclogger
 AsyncLoggerContext.stop();
 ```
 
