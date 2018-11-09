@@ -11,12 +11,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.extension.collector.c1.message;
+package me.mingshan.logger.async.source.collector.c1.message;
 
 import me.mingshan.logger.async.api.Level;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 public class Message implements Serializable {
     private String serviceName;

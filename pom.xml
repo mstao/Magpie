@@ -14,6 +14,8 @@
     <module>async-logger-extension</module>
     <module>async-logger-examples</module>
     <module>async-logger-insight</module>
+    <module>async-logger-source</module>
+    <module>async-logger-pipeline</module>
   </modules>
 
   <licenses>

@@ -9,9 +9,9 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>async-logger-extension</artifactId>
+  <artifactId>async-logger-pipeline</artifactId>
 
-  <name>async-logger-extension</name>
+  <name>async-logger-pipeline</name>
   <url>http://mingshan.me/asynchronous-logger-component</url>
 
   <properties>
@@ -24,9 +24,9 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+      <version>4.11</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
 </project>

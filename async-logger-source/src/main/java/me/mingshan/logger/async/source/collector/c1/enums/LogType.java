@@ -1,4 +1,4 @@
-package me.mingshan.logger.async.extension.collector.c1.enums;
+package me.mingshan.logger.async.source.collector.c1.enums;
 
 /**
  * 日志类型

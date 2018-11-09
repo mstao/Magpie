@@ -11,14 +11,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.extension.collector.c1.aspect;
+package me.mingshan.logger.async.source.collector.c1.aspect;
 
 import me.mingshan.logger.async.AsyncLogger;
 import me.mingshan.logger.async.AsyncLoggerContext;
 import me.mingshan.logger.async.api.Level;
-import me.mingshan.logger.async.extension.collector.c1.annotation.Log;
-import me.mingshan.logger.async.extension.collector.c1.message.Message;
-import me.mingshan.logger.async.extension.util.JsonUtils;
+import me.mingshan.logger.async.source.collector.c1.annotation.Log;
+import me.mingshan.logger.async.source.collector.c1.message.Message;
+import me.mingshan.logger.async.source.util.JsonUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -27,7 +27,10 @@ import org.aspectj.lang.annotation.Pointcut;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static me.mingshan.logger.async.extension.util.AopUtils.*;
+import static me.mingshan.logger.async.source.util.AopUtils.getAnnotation;
+import static me.mingshan.logger.async.source.util.AopUtils.getMethodFromTarget;
+import static me.mingshan.logger.async.source.util.AopUtils.getParameters;
+
 
 /**
  * If you use Spring AOP in your project then you need to add specific configuration using Spring AOP namespace
@@ -36,7 +39,7 @@ import static me.mingshan.logger.async.extension.util.AopUtils.*;
  *
  * <pre> {@code
  *     <aop:aspectj-autoproxy/>
- *     <bean id="hystrixAspect" class="me.mingshan.logger.async.extension.collector.c1.aspect.LoggerAspect"></bean>
+ *     <bean id="hystrixAspect" class="me.mingshan.logger.async.source.collector.c1.aspect.LoggerAspect"></bean>
  * }</pre>
  *
  * Or if you are using Spring code configuration:
@@ -57,7 +60,7 @@ import static me.mingshan.logger.async.extension.util.AopUtils.*;
 @Aspect
 public class LoggerAspect {
 
-    @Pointcut("@annotation(me.mingshan.logger.async.extension.collector.c1.annotation.Log)")
+    @Pointcut("@annotation(me.mingshan.logger.async.source.collector.c1.annotation.Log)")
     private void logPointCut() {
     }
 
@@ -68,7 +71,7 @@ public class LoggerAspect {
 
         Method method = getMethodFromTarget(joinPoint);
         Log logAnnotation = getAnnotation(joinPoint,
-                me.mingshan.logger.async.extension.collector.c1.annotation.Log.class)
+                me.mingshan.logger.async.source.collector.c1.annotation.Log.class)
                 .orElseGet(null);
         // 判断日志注解是否存在
         if (logAnnotation != null) {

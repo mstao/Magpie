@@ -11,9 +11,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async.extension.collector.c1.annotation;
+package me.mingshan.logger.async.source.collector.c1.annotation;
 
-import me.mingshan.logger.async.extension.collector.c1.enums.LogType;
+import me.mingshan.logger.async.source.collector.c1.enums.LogType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
