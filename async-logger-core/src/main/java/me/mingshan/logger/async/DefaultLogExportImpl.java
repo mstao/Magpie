@@ -19,6 +19,8 @@ import java.util.Arrays;
 
 /**
  * The default implementation of exporting log.
+ *
+ * @author mingshan
  */
 public class DefaultLogExportImpl implements LogExport {
 

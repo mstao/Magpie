@@ -23,26 +23,30 @@ import java.io.Serializable;
 public interface LogEvent extends Serializable {
 
     /**
+     * Gets byte array of the message.
      *
-     * @return The
+     * @return the byte array
      */
     byte[] getMessage();
 
     /**
+     * Gets the name of current thread.
      *
-     * @return
+     * @return the name
      */
     String getThreadName();
 
     /**
+     * Gets the id of current thread.
      *
-     * @return
+     * @return the id
      */
     long getThreadId();
 
     /**
+     * The flag to indicate if this is the last event in a batch from the {@code RingBuffer}.
      *
-     * @return
+     * @return see comments
      */
     boolean isEndOfBatch();
 }
