@@ -15,7 +15,7 @@
 
 ### Requirements
 
-[Java](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) `1.8` and above.
+[Java `1.8`](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and above.
 
 ### Documents
 
@@ -23,7 +23,7 @@ See [me](http://mingshan.me/asynchronous-logger-component/)
 
 ### Compiling
 
-[Java](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) `1.8` and above.<br>
+[Java `1.8`](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and above.<br>
 Maven 3.x
 
 ## License
