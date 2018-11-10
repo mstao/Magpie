@@ -150,7 +150,7 @@ public class AsyncLoggerPlugins<E> {
                 for (String implementClass : implementClasses) {
                     try {
                         if (StringUtil.isEmpty(implementClass)) {
-                            return null;
+                            return Collections.EMPTY_LIST;
                         }
                         Class<?> cls = Class.forName(implementClass);
                         cls = cls.asSubclass(clazz);

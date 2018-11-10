@@ -41,7 +41,7 @@
   </scm>
 
   <inceptionYear>2018</inceptionYear>
-  
+
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -128,7 +128,6 @@
   </repositories>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
