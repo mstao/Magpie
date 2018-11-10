@@ -22,6 +22,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>me.mingshan.logger.async</groupId>
       <artifactId>async-logger-core</artifactId>
       <version>${project.version}</version>
