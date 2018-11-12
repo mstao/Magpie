@@ -1,4 +1,4 @@
-# AsyncLoggerComponent
+# Magpie
 
 > An asynchronous logger compenent with Disruptor.
 
