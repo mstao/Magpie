@@ -40,8 +40,8 @@ See [me](http://mingshan.me/asynchronous-logger-component/)
 
 ### Compiling
 
-[Java `1.8`](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and above.<br>
-Maven 3.x
+- [Java `1.8`](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) and above.<br>
+- Maven 3.x
 
 ```
 mvn clean package -DskipTests
