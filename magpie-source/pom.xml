@@ -3,16 +3,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>asynchronous-logger-component</artifactId>
-    <groupId>me.mingshan.logger.async</groupId>
+    <artifactId>magpie</artifactId>
+    <groupId>me.mingshan</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>async-logger-examples</artifactId>
+  <artifactId>magpie-source</artifactId>
 
-  <name>async-logger-examples</name>
-  <url>http://mingshan.me/asynchronous-logger-component</url>
+  <name>magpie-source</name>
+  <url>http://mingshan.me/magpie</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,19 +22,42 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
+      <groupId>me.mingshan</groupId>
+      <artifactId>magpie-api</artifactId>
+      <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>me.mingshan.logger.async</groupId>
-      <artifactId>async-logger-core</artifactId>
+      <groupId>me.mingshan</groupId>
+      <artifactId>magpie-core</artifactId>
       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjtools</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
     </dependency>
   </dependencies>
 
   <build>
-    <finalName>async-logger-examples</finalName> <!--包名称 -->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -50,7 +73,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.1</version>
+        <version>3.2</version>
         <configuration>
           <encoding>UTF-8</encoding>
           <source>1.8</source>

@@ -4,18 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>me.mingshan.logger.async</groupId>
-  <artifactId>asynchronous-logger-component</artifactId>
+  <groupId>me.mingshan</groupId>
+  <artifactId>magpie</artifactId>
   <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
   <modules>
-    <module>async-logger-core</module>
-    <module>async-logger-api</module>
-    <module>async-logger-extension</module>
-    <module>async-logger-examples</module>
-    <module>async-logger-insight</module>
-    <module>async-logger-source</module>
-    <module>async-logger-pipeline</module>
+    <module>magpie-core</module>
+    <module>magpie-api</module>
+    <module>magpie-extension</module>
+    <module>magpie-examples</module>
+    <module>magpie-insight</module>
+    <module>magpie-source</module>
+    <module>magpie-pipeline</module>
   </modules>
 
   <licenses>
@@ -34,9 +34,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/mstao/asynchronous-logger-component.git</connection>
-    <developerConnection>scm:git:https://github.com/mstao/asynchronous-logger-component.git</developerConnection>
-    <url>https://github.com/mstao/asynchronous-logger-component</url>
+    <connection>scm:git:https://github.com/mstao/magpie.git</connection>
+    <developerConnection>scm:git:https://github.com/mstao/magpie.git</developerConnection>
+    <url>https://github.com/mstao/magpie</url>
     <tag>${project.version}</tag>
   </scm>
 
