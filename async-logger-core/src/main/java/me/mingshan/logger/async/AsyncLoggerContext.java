@@ -30,7 +30,6 @@ public class AsyncLoggerContext {
         loggerDisruptor.stop();
     }
 
-    @SuppressWarnings("unchecked")
     public static AsyncLogger getAsyncLogger() {
         if (asyncLogger == null) {
             synchronized (AsyncLogger.class) {

@@ -21,6 +21,8 @@ import me.mingshan.logger.async.property.AsyncLoggerProperty;
 import me.mingshan.logger.async.property.AsyncLoggerSystemProperties;
 import me.mingshan.logger.async.util.ClassUtil;
 import me.mingshan.logger.async.util.StringUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -32,7 +34,8 @@ import java.util.concurrent.atomic.AtomicReference;
  *
  * @author mingshan
  */
-public class AsyncLoggerPlugins<E> {
+public class AsyncLoggerPlugins {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncLoggerPlugins.class);
     private final AtomicReference<List<LogExport>> logExports = new AtomicReference<>();
     private AsyncLoggerProperties asyncLoggerProperties;
 
@@ -46,11 +49,10 @@ public class AsyncLoggerPlugins<E> {
     /**
      * Returns the instance of {@link AsyncLoggerPlugins}.
      *
-     * @param <E> the generics class
      * @return the instance of {@link AsyncLoggerPlugins}
      */
     @SuppressWarnings("unchecked")
-    public static<E> AsyncLoggerPlugins<E> getInstance() {
+    public static AsyncLoggerPlugins getInstance() {
         return AsyncLoggerPluginsHolder.instance;
     }
 
@@ -67,7 +69,7 @@ public class AsyncLoggerPlugins<E> {
      * @return the instance of {@link AsyncLoggerPlugins}
      */
     private static AsyncLoggerPlugins create() {
-        return new AsyncLoggerPlugins<>();
+        return new AsyncLoggerPlugins();
     }
 
     /**
@@ -107,7 +109,7 @@ public class AsyncLoggerPlugins<E> {
         Objects.requireNonNull(clazz);
         // Gets configuration via system property.
         List<T> ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-        System.out.println("Find plugin " +  clazz.getSimpleName() + " by system property, implementations："
+        LOGGER.info("Find plugin " +  clazz.getSimpleName() + " by system property, implementations："
                 + (ts != null ? Arrays.toString(ts.toArray()) : ""));
 
         if (ts.size() > 0) {
@@ -116,7 +118,7 @@ public class AsyncLoggerPlugins<E> {
             // Gets configuration via file property.
             asyncLoggerProperties = resolveDynamicProperties(LoadConfigType.FILE);
             ts = getPluginImplementationByProperty(asyncLoggerProperties, clazz);
-            System.out.println("Find plugin " +  clazz.getSimpleName() + " by file property, implementations："
+            LOGGER.info("Find plugin " +  clazz.getSimpleName() + " by file property, implementations："
                     + (ts != null ? Arrays.toString(ts.toArray()) : ""));
             if (ts.size() > 0) {
                 return ts;
@@ -218,7 +220,7 @@ public class AsyncLoggerPlugins<E> {
         ServiceLoader<T> serviceLoader =  ServiceLoader.load(clazz);
         for (T t : serviceLoader) {
             if (t != null) {
-                System.out.println("Find plugin " +  clazz.getSimpleName() + " by SPI, implementation："  + t);
+                LOGGER.info("Find plugin " +  clazz.getSimpleName() + " by SPI, implementation："  + t);
                 objs.add(t);
             }
         }
@@ -228,7 +230,7 @@ public class AsyncLoggerPlugins<E> {
             T result;
             try {
                 result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
-                System.out.println("Find plugin " +  clazz.getSimpleName() + " by Default, implementation："  + result);
+                LOGGER.info("Find plugin " +  clazz.getSimpleName() + " by Default, implementation："  + result);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Class " + clazz + " not found ", e);
             }

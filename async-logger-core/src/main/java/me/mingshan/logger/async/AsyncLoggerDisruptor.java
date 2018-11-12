@@ -17,6 +17,8 @@ import com.lmax.disruptor.*;
 import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import me.mingshan.logger.async.util.DisruptorUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -27,6 +29,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author mingshan
  */
 public class AsyncLoggerDisruptor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AsyncLoggerDisruptor.class);
     private volatile Disruptor<RingBufferLogEvent> disruptor;
 
     public Disruptor<RingBufferLogEvent> getDisruptor() {
@@ -62,7 +65,7 @@ public class AsyncLoggerDisruptor {
         final EventHandler[] handlers = {new RingBufferLogEventHandler()};
         disruptor.handleEventsWith(handlers);
         disruptor.start();
-        System.out.println("Disruptor started");
+        LOGGER.info("Disruptor started");
     }
 
     /**
