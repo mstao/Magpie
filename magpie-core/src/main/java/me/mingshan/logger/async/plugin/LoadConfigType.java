@@ -28,7 +28,7 @@ public enum LoadConfigType {
     /**
      * Load configuration from system property.
      */
-    FILE("Load configuration from system property");
+    FILE("Load configuration from file");
 
     /**
      * The description of loading configuration.
