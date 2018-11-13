@@ -2,7 +2,7 @@
 
 > Magpie - The bridge of data connection..
 
-[![Build Status](https://travis-ci.org/mstao/asynchronous-logger-component.svg?branch=master)](https://travis-ci.org/mstao/asynchronous-logger-component) 
+[![Build Status](https://travis-ci.org/mstao/Magpie.svg?branch=master)](https://travis-ci.org/mstao/Magpie) 
 [![Join the chat at https://gitter.im/asynchronous-logger-component/Lobby](https://badges.gitter.im/asynchronous-logger-component/Lobby.svg)](https://gitter.im/asynchronous-logger-component/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Features
