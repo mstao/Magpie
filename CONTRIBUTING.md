@@ -5,32 +5,32 @@ If you have any good ideas and suggestion, please open issues or pull request. T
 
 1. Fork repository
 
-Please fork `asynchronous-logger-component` firstly.
+Please fork `Magpie` firstly.
 
 2. Set up local repository
 
 - You should run command as flow to clone code.
 
 ```
-git clone https://github.com/<your_github_name>/asynchronous-logger-component.git
+git clone https://github.com/<your_github_name>/Magpie.git
 ```
 please replace the `your_github_name` with your github name.
 
-- Add mstao/asynchronous-logger-component as upstream remote:
+- Add mstao/Magpie as upstream remote:
 
 ```
 cd asynchronous-logger-component
-git remote add upstream https://github.com/mstao/asynchronous-logger-component.git
+git remote add upstream https://github.com/mstao/Magpie.git
 ```
 
 - Check the local repository’s remotes
 
 ```
 git remote -v
-origin https://github.com/<your_github_name>/asynchronous-logger-component.git (fetch)
-origin    https://github.com/<your_github_name>/asynchronous-logger-component.git (push)
-upstream  https://github.com/mstao/asynchronous-logger-component.git (fetch)
-upstream  https://github.com/mstao/asynchronous-logger-component.git (push)
+origin https://github.com/<your_github_name>/Magpie.git (fetch)
+origin    https://github.com/<your_github_name>/Magpie.git (push)
+upstream  https://github.com/mstao/Magpie.git (fetch)
+upstream  https://github.com/mstao/Magpie.git (push)
 ```
 
 - Create a new branch to start working
