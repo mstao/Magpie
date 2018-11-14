@@ -39,7 +39,7 @@ import static me.mingshan.logger.async.source.util.AopUtils.getParameters;
  *
  * <pre> {@code
  *     <aop:aspectj-autoproxy/>
- *     <bean id="hystrixAspect" class="me.mingshan.logger.async.source.collector.c1.aspect.LoggerAspect"></bean>
+ *     <bean id="loggerAspect" class="me.mingshan.logger.async.source.collector.c1.aspect.LoggerAspect"></bean>
  * }</pre>
  *
  * Or if you are using Spring code configuration:
