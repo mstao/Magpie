@@ -43,7 +43,7 @@ public class AsyncLoggerPlugins {
      * Inner class for lazy load.
      */
     private static class AsyncLoggerPluginsHolder {
-        private static final AsyncLoggerPlugins instance = AsyncLoggerPlugins.create();
+        private static final AsyncLoggerPlugins INSTANCE = AsyncLoggerPlugins.create();
     }
 
     /**
@@ -53,7 +53,7 @@ public class AsyncLoggerPlugins {
      */
     @SuppressWarnings("unchecked")
     public static AsyncLoggerPlugins getInstance() {
-        return AsyncLoggerPluginsHolder.instance;
+        return AsyncLoggerPluginsHolder.INSTANCE;
     }
 
     /**
