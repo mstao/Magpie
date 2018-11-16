@@ -7,7 +7,8 @@
 
 ## Features
 
-- Java SPI for plugins, including LogExport configuration(console, file, logstash and etc)
+- Java SPI for plugins, including data export configuration(console, file, logstash and etc)
+- Support various data sources(File, Http, Socket[TCP/UDP], MySql, AuditLog, Redis, MongoDB and etc)
 - Support Disruptor, privodes perfect performance
 - Thinking...
 
