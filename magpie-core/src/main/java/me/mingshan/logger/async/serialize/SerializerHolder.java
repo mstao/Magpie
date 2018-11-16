@@ -13,6 +13,7 @@
  */
 package me.mingshan.logger.async.serialize;
 
+import me.mingshan.logger.async.serialize.jdk.JDKSerializer;
 import me.mingshan.logger.async.serialize.protostuff.ProtostuffSerializer;
 
 /**
@@ -21,7 +22,7 @@ import me.mingshan.logger.async.serialize.protostuff.ProtostuffSerializer;
  * @author mingshan
  */
 public class SerializerHolder {
-    private static final Serializer SERIALIZER = new ProtostuffSerializer();
+    private static final Serializer SERIALIZER = new JDKSerializer();
 
     /**
      * Get the implementation of serializer.

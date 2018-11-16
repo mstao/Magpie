@@ -24,6 +24,7 @@ import me.mingshan.logger.async.serialize.Serializer;
  *
  * @author mingshan
  */
+@Deprecated
 public class ProtostuffSerializer implements Serializer {
 
     @SuppressWarnings("unchecked")
