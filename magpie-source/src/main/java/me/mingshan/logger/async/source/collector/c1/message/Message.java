@@ -18,6 +18,8 @@ import me.mingshan.logger.async.api.Level;
 import java.io.Serializable;
 
 public class Message implements Serializable {
+    private static final long serialVersionUID = 5692493460944679784L;
+
     private String serviceName;
     private String methodName;
     private String args;

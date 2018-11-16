@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: magpie-web-example
+
+server:
+  port: 8888

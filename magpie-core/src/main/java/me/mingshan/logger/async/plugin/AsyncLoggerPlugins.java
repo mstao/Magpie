@@ -51,7 +51,6 @@ public class AsyncLoggerPlugins {
      *
      * @return the instance of {@link AsyncLoggerPlugins}
      */
-    @SuppressWarnings("unchecked")
     public static AsyncLoggerPlugins getInstance() {
         return AsyncLoggerPluginsHolder.INSTANCE;
     }
@@ -77,7 +76,6 @@ public class AsyncLoggerPlugins {
      *
      * @return the implementations of {@link LogExport}
      */
-    @SuppressWarnings("unchecked")
     public List<LogExport> getlogExports() {
         if (logExports.get() == null) {
             List<LogExport> impl = getPluginImplementation(LogExport.class);

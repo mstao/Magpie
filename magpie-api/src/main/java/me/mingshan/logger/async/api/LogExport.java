@@ -21,7 +21,7 @@ package me.mingshan.logger.async.api;
 public interface LogExport {
 
     /**
-     * Exports log info via entity.
+     * Exports log info via byte array.
      *
      * @param message the byte array of message
      */

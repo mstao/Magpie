@@ -27,9 +27,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import java.lang.reflect.Method;
 import java.util.Optional;
 
-import static me.mingshan.logger.async.source.util.AopUtils.getAnnotation;
-import static me.mingshan.logger.async.source.util.AopUtils.getMethodFromTarget;
-import static me.mingshan.logger.async.source.util.AopUtils.getParameters;
+import static me.mingshan.logger.async.source.util.AopUtils.*;
 
 
 /**
@@ -70,9 +68,9 @@ public class LoggerAspect {
         Level level = Level.INFO;
 
         Method method = getMethodFromTarget(joinPoint);
-        Log logAnnotation = getAnnotation(joinPoint,
-                me.mingshan.logger.async.source.collector.c1.annotation.Log.class)
-                .orElseGet(null);
+        Log logAnnotation = getMethodAnnotation(joinPoint,
+                me.mingshan.logger.async.source.collector.c1.annotation.Log.class);
+
         // Determines if log annotations exist
         if (logAnnotation != null) {
             // Gets interfaces of class

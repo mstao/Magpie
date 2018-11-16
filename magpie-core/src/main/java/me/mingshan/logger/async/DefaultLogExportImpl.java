@@ -28,4 +28,5 @@ public class DefaultLogExportImpl implements LogExport {
     public void export(byte[] message) {
         System.out.println(Arrays.toString(message));
     }
+
 }

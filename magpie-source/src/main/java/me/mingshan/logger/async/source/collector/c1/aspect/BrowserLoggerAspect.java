@@ -1,13 +1,22 @@
 package me.mingshan.logger.async.source.collector.c1.aspect;
 
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.OperatingSystem;
+import eu.bitwalker.useragentutils.UserAgent;
+import eu.bitwalker.useragentutils.Version;
+import me.mingshan.logger.async.AsyncLogger;
+import me.mingshan.logger.async.AsyncLoggerContext;
 import me.mingshan.logger.async.source.collector.c1.message.BrowserMessage;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
-import java.util.Optional;
 import static me.mingshan.logger.async.source.util.AopUtils.getParameters;
 
 /**
@@ -15,14 +24,15 @@ import static me.mingshan.logger.async.source.util.AopUtils.getParameters;
  * @author lyf
  * @date 2018-11-16 17:54:11
  */
+@Aspect
 public class BrowserLoggerAspect {
 
-    @Pointcut("@annotation(me.mingshan.logger.async.source.collector.c1.annotation.Log)")
+    @Pointcut("@annotation(me.mingshan.logger.async.source.collector.c1.annotation.AccessLog)")
     private void browserLogPointCut() {
     }
 
     @Around("browserLogPointCut()")
-    public Object methodsAnnotatedWithLogger(final ProceedingJoinPoint joinPoint ) throws Throwable {
+    public Object methodsAnnotatedWithLogger(final ProceedingJoinPoint joinPoint) throws Throwable {
         Object result = null;
         Object[] params = getParameters(joinPoint);
         try{
@@ -75,6 +85,14 @@ public class BrowserLoggerAspect {
         browserMessage.setIpAddress(ip);
         browserMessage.setOs(osName);
         browserMessage.setStatus(statusCode);
+        AsyncLoggerContext.start();
+        AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
+
+        try {
+            asyncLogger.logMessage(browserMessage);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
     }
 
 }

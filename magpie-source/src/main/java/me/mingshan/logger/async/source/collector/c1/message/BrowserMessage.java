@@ -1,5 +1,6 @@
 package me.mingshan.logger.async.source.collector.c1.message;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,7 +8,8 @@ import java.time.LocalDateTime;
  * @author lyf
  * @date 2018-11-16 17:50:24
  */
-public class BrowserMessage extends Message {
+public class BrowserMessage implements Serializable {
+    private static final long serialVersionUID = 1630695145167900386L;
 
     /**
      * ip
@@ -72,5 +74,16 @@ public class BrowserMessage extends Message {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "BrowserMessage{" +
+                "ipAddress='" + ipAddress + '\'' +
+                ", browser='" + browser + '\'' +
+                ", os='" + os + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

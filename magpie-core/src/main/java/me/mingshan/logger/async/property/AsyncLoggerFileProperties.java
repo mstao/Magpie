@@ -70,7 +70,6 @@ public class AsyncLoggerFileProperties implements AsyncLoggerProperties {
             value = String.valueOf(cachedValue);
         }
 
-
         final String endValue = value;
         return new AsyncLoggerProperty<String>() {
 

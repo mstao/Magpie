@@ -70,6 +70,9 @@ public class PropertyUtil {
     public static Properties loadProperties(String fileName) {
         Properties properties = new Properties();
         InputStream input = ClassUtil.getClassLoader().getResourceAsStream(fileName);
+        if (input == null) {
+            return properties;
+        }
         BufferedReader br = new BufferedReader(new InputStreamReader(input, StandardCharsets.UTF_8));
 
         try {

@@ -1,5 +1,7 @@
-package me.mingshan.logger.async;
+package me.mingshan.magpie.demo;
 
+import me.mingshan.logger.async.AsyncLogger;
+import me.mingshan.logger.async.AsyncLoggerContext;
 import me.mingshan.logger.async.api.Message;
 
 public class ConsoleDemo {

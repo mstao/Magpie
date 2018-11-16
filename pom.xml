@@ -53,10 +53,13 @@
     <guava.version>27.0-jre</guava.version>
     <fastjson.version>1.2.51</fastjson.version>
     <caffeine.version>2.6.2</caffeine.version>
-    <protostuff.version>1.6.0</protostuff.version>
+    <protostuff.version>1.5.9</protostuff.version>
     <netty.version>4.1.31.Final</netty.version>
     <slf4j.version>1.7.7</slf4j.version>
     <log4j.version>1.2.17</log4j.version>
+    <spring.version>5.1.2.RELEASE</spring.version>
+    <javaee-api.version>8.0</javaee-api.version>
+    <UserAgentUtils.version>1.21</UserAgentUtils.version>
   </properties>
 
   <dependencyManagement>
@@ -138,7 +141,21 @@
         <artifactId>slf4j-log4j12</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax</groupId>
+        <artifactId>javaee-api</artifactId>
+        <version>${javaee-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.bitwalker</groupId>
+        <artifactId>UserAgentUtils</artifactId>
+        <version>${UserAgentUtils.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -148,7 +165,7 @@
       <name>nexus-aliyun</name>
       <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
       <releases> <enabled>true</enabled> </releases>
-      <snapshots> <enabled>false</enabled> </snapshots>
+      <snapshots> <enabled>true</enabled> </snapshots>
     </repository>
   </repositories>
 

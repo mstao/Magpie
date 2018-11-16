@@ -1,4 +1,4 @@
-package me.mingshan.logger.async;
+package me.mingshan.magpie.demo;
 
 import me.mingshan.logger.async.cache.Cache;
 import me.mingshan.logger.async.cache.CaffeineCache;

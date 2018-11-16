@@ -135,7 +135,7 @@ public final class AopUtils {
     public static <T extends Annotation> Optional<T> getAnnotation(Class<?> type, Class<T> annotation) {
         Objects.requireNonNull(annotation, "annotation cannot be null");
         Objects.requireNonNull(type, "type cannot be null");
-
+        Annotation[] annotation1 = type.getDeclaredAnnotations();
         for (Annotation ann : type.getDeclaredAnnotations()) {
             if (ann.annotationType().equals(annotation)) return Optional.of((T) ann);
         }
@@ -146,6 +146,33 @@ public final class AopUtils {
         }
 
         return Optional.empty();
+    }
+
+    /**
+     * Gets annotation by {@code JoinPoint} and the method of annotation.
+     *
+     * @param joinPoint the join point
+     * @param annotation the annotation
+     * @param <T> the annotation
+     * @return the annotation
+     */
+    public static <T extends Annotation> T getMethodAnnotation(JoinPoint joinPoint, Class<T> annotation) {
+        Objects.requireNonNull(annotation, "annotation cannot be null");
+        return getMethodFromTarget(joinPoint).getAnnotation(annotation);
+    }
+
+    /**
+     * Gets annotation by {@code Method} and the method of annotation.
+     *
+     * @param method the method
+     * @param annotation the annotation
+     * @param <T> the annotation
+     * @return the annotation
+     */
+    public static <T extends Annotation> T getMethodAnnotation(Method method, Class<T> annotation) {
+        Objects.requireNonNull(method, "method cannot be null");
+        Objects.requireNonNull(annotation, "annotation cannot be null");
+        return method.getAnnotation(annotation);
     }
 
     /**
