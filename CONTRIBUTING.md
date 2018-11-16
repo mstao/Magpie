@@ -19,7 +19,7 @@ please replace the `your_github_name` with your github name.
 - Add mstao/Magpie as upstream remote:
 
 ```
-cd asynchronous-logger-component
+cd Magpie
 git remote add upstream https://github.com/mstao/Magpie.git
 ```
 
