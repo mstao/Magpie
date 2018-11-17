@@ -31,7 +31,7 @@ public class DemoController {
     @Autowired
     private DemoService demoService;
 
-    //@Log(type = {LogType.ACCESS, LogType.EXECUTE})
+    @Log(type = {LogType.ACCESS, LogType.EXECUTE})
     @RequestMapping("/test1")
     public String test1(@RequestParam("name") String name) {
         return demoService.test(name);

@@ -34,7 +34,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Optional;
@@ -81,7 +80,7 @@ public class LoggerAspect {
 
         Method method = getMethodFromTarget(joinPoint);
         Log logAnnotation = getMethodAnnotation(joinPoint,
-                me.mingshan.logger.async.source.collector.c1.annotation.Log.class);
+                Log.class);
 
         // Determines if log annotations exist
         if (logAnnotation != null) {
@@ -146,7 +145,6 @@ public class LoggerAspect {
         message.setServiceName(serviceName);
         message.setMethodName(methodName);
         message.setArgs(logAnnotation.recordParams() ? paramStr : null);
-        writeMessage(message);
         return message;
     }
 
