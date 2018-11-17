@@ -33,11 +33,11 @@ import java.lang.annotation.Target;
 public @interface Log {
 
     /**
-     * Mark the type of log，the default value is {@code LogType.VISITOR}
+     * Marks the type of log，the default value is {@code LogType#ACCESS}
      *
      * @return the type of log
      */
-    LogType type() default LogType.VISITOR;
+    LogType[] type() default LogType.EXECUTE;
 
     /**
      * Whether to record the parameters of method，the default value is{@code true}.

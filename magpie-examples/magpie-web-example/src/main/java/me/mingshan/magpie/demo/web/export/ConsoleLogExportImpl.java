@@ -24,7 +24,7 @@ public class ConsoleLogExportImpl implements LogExport {
     public void export(byte[] message) {
         Serializer serializer = SerializerHolder.serializerImpl();
         System.out.println("zz = " + message);
-        System.out.println(serializer.readObject(message, Message.class));
+        System.out.println("zz = " + serializer.readObject(message, Message.class));
     }
 
 }

@@ -15,9 +15,14 @@ public enum LogType {
     EXCEPTION(2, "异常日志"),
 
     /**
-     * 访问日志
+     * 执行日志，记录方法的执行信息，
      */
-    VISITOR(3, "访问日志");
+    EXECUTE(3, "执行日志"),
+
+    /**
+     * 访问日志，放在controller层，可以收集用户及浏览器的信息
+     */
+    ACCESS(4, "访问日志");
 
     private int number;
     private String name;

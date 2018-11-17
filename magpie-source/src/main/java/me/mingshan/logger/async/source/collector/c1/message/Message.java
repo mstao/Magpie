@@ -28,6 +28,7 @@ public class Message implements Serializable {
     private String message;
     private Level level;
     private Throwable e;
+    private BrowserMessage browserMessage;
 
     public String getServiceName() {
         return serviceName;
@@ -93,6 +94,14 @@ public class Message implements Serializable {
         this.e = e;
     }
 
+    public BrowserMessage getBrowserMessage() {
+        return browserMessage;
+    }
+
+    public void setBrowserMessage(BrowserMessage browserMessage) {
+        this.browserMessage = browserMessage;
+    }
+
     @Override
     public String toString() {
         return "Message{" +
@@ -104,6 +113,7 @@ public class Message implements Serializable {
                 ", message='" + message + '\'' +
                 ", level=" + level +
                 ", e=" + e +
+                ", browserMessage=" + browserMessage +
                 '}';
     }
 }
