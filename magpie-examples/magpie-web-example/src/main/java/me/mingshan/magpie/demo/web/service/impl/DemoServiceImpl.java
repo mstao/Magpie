@@ -13,8 +13,8 @@
  */
 package me.mingshan.magpie.demo.web.service.impl;
 
-import me.mingshan.logger.async.source.collector.c1.annotation.Log;
 import me.mingshan.magpie.demo.web.service.DemoService;
+import me.mingshan.magpie.source.c1.annotation.Log;
 import org.springframework.stereotype.Service;
 
 /**

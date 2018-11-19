@@ -13,7 +13,7 @@
  */
 package me.mingshan.magpie.demo.web.config;
 
-import me.mingshan.logger.async.source.collector.c1.aspect.LoggerAspect;
+import me.mingshan.magpie.source.c1.aspect.LoggerAspect;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

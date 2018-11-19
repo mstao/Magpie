@@ -3,26 +3,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>magpie</artifactId>
+    <artifactId>magpie-source</artifactId>
     <groupId>me.mingshan</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>magpie-source</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>magpie-aspect-source</artifactId>
 
-  <name>magpie-source</name>
-  <url>http://mingshan.me/magpie</url>
-  <modules>
-    <module>magpie-aspect-source</module>
-    <module>magpie-http-source</module>
-    <module>magpie-socket-source</module>
-    <module>magpie-mongo-source</module>
-    <module>magpie-kafka-source</module>
-    <module>magpie-file-source</module>
-    <module>magpie-sql-source</module>
-  </modules>
+  <name>magpie-aspect-source</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

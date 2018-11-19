@@ -13,9 +13,9 @@
  */
 package me.mingshan.magpie.demo.web.controller;
 
-import me.mingshan.logger.async.source.collector.c1.annotation.Log;
-import me.mingshan.logger.async.source.collector.c1.enums.LogType;
 import me.mingshan.magpie.demo.web.service.DemoService;
+import me.mingshan.magpie.source.c1.annotation.Log;
+import me.mingshan.magpie.source.c1.enums.LogType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
