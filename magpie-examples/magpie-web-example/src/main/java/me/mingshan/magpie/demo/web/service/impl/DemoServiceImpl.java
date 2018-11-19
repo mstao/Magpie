@@ -25,6 +25,7 @@ public class DemoServiceImpl implements DemoService {
 
     @Log
     public String test(String name) {
-        return "hello" + name;
+        throw new IllegalArgumentException("参数有问题");
+        //return "hello" + name;
     }
 }

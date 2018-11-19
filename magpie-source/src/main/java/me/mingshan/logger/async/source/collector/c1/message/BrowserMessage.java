@@ -40,11 +40,6 @@ public class BrowserMessage implements Serializable {
     private String os;
 
     /**
-     * http status code
-     */
-    private String status;
-
-    /**
      * access time
      */
     private LocalDateTime createTime;
@@ -73,13 +68,6 @@ public class BrowserMessage implements Serializable {
         this.os = os;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public LocalDateTime getCreateTime() {
         return createTime;
@@ -95,7 +83,6 @@ public class BrowserMessage implements Serializable {
                 "ipAddress='" + ipAddress + '\'' +
                 ", browser='" + browser + '\'' +
                 ", os='" + os + '\'' +
-                ", status='" + status + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }

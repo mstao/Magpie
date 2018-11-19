@@ -39,4 +39,14 @@ public enum LogType {
     public String getName() {
         return this.name;
     }
+
+    public LogType valueOf(int number) {
+        for (LogType logType : values()) {
+            if (logType.number == number) {
+                return logType;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid type value");
+    }
 }

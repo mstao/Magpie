@@ -29,6 +29,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.core.annotation.Order;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -36,7 +37,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Optional;
 
 import static me.mingshan.logger.async.source.util.AopUtils.*;
 
@@ -67,6 +67,7 @@ import static me.mingshan.logger.async.source.util.AopUtils.*;
  * @author mingshan
  */
 @Aspect
+@Order(Integer.MIN_VALUE)
 public class LoggerAspect {
 
     @Pointcut("@annotation(me.mingshan.logger.async.source.collector.c1.annotation.Log)")
@@ -77,10 +78,10 @@ public class LoggerAspect {
     public Object methodsAnnotatedWithLogger(final ProceedingJoinPoint joinPoint) throws Throwable{
         Object result = null;
         Level level = Level.INFO;
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 
         Method method = getMethodFromTarget(joinPoint);
-        Log logAnnotation = getMethodAnnotation(joinPoint,
-                Log.class);
+        Log logAnnotation = getMethodAnnotation(joinPoint, Log.class);
 
         // Determines if log annotations exist
         if (logAnnotation != null) {
@@ -93,7 +94,7 @@ public class LoggerAspect {
                     message = generateExecutedInfo(joinPoint, method, logAnnotation, message);
                 } else if (logType.getNumber() == 4) {
                     // access
-                    BrowserMessage browserMessage = generateAccessInfo(joinPoint);
+                    BrowserMessage browserMessage = generateAccessInfo(joinPoint, attributes);
                     message.setBrowserMessage(browserMessage);
                 }
             }
@@ -123,6 +124,7 @@ public class LoggerAspect {
         return result;
     }
 
+
     private Message generateExecutedInfo(final ProceedingJoinPoint joinPoint, Method method,
                                         Log logAnnotation, Message message) {
         // Gets interfaces of class
@@ -149,10 +151,10 @@ public class LoggerAspect {
         return message;
     }
 
-    private BrowserMessage generateAccessInfo(final ProceedingJoinPoint joinPoint) {
+    private BrowserMessage generateAccessInfo(final ProceedingJoinPoint joinPoint,
+                                              ServletRequestAttributes attributes) {
         Object[] params = getParameters(joinPoint);
 
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String url = "http://" + request.getServerName()
                 + ":"
@@ -178,14 +180,11 @@ public class LoggerAspect {
                 params = Arrays.copyOf(params,params.length-1);
             }
         }
-        // get http response code
-        HttpServletResponse response = attributes.getResponse();
-        String statusCode = String.valueOf(response.getStatus());
+
         BrowserMessage browserMessage = new BrowserMessage();
         browserMessage.setBrowser(browserName);
         browserMessage.setIpAddress(ip);
         browserMessage.setOs(osName);
-        browserMessage.setStatus(statusCode);
 
         return browserMessage;
     }
