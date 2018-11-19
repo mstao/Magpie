@@ -138,9 +138,10 @@ public class LoggerAspect {
             params = getParameters(joinPoint);
         }
 
-        String paramStr =  Optional.ofNullable(params)
-                .map(JsonUtils::arrayToString)
-                .orElseGet(null);
+        String paramStr = null;
+        if (params != null) {
+            paramStr = JsonUtils.arrayToString(params);
+        }
 
         message.setServiceName(serviceName);
         message.setMethodName(methodName);
@@ -190,9 +191,11 @@ public class LoggerAspect {
     }
 
     private String getExectuedResult(Object result) {
-        return Optional.ofNullable(result)
-                .map(JsonUtils::objectToString)
-                .orElseGet(null);
+        if (result == null) {
+            return null;
+        }
+
+        return JsonUtils.objectToString(result);
     }
 
     private void writeMessage(Message message) {
