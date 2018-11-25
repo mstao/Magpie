@@ -156,7 +156,9 @@ public class LoggerAspect {
         Object[] params = getParameters(joinPoint);
 
         HttpServletRequest request = attributes.getRequest();
-        String url = "http://" + request.getServerName()
+        String url = request.getScheme()
+                + "://"
+                + request.getServerName()
                 + ":"
                 + request.getServerPort()
                 + request.getContextPath()
