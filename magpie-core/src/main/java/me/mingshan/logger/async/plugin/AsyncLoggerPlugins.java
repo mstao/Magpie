@@ -227,7 +227,7 @@ public class AsyncLoggerPlugins {
         if (objs.isEmpty()) {
             T result;
             try {
-                result = (T) ClassUtil.getClassLoader().loadClass(Constants.DEFAULT_LOG_EXPORT_IMPL);
+                result = (T) ClassUtil.getClassLoader().loadClass(getDefaultImplementClassFullName(clazz.getSimpleName() ));
                 LOGGER.info("Find plugin " +  clazz.getSimpleName() + " by Default, implementation："  + result);
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException("Class " + clazz + " not found ", e);
@@ -236,6 +236,16 @@ public class AsyncLoggerPlugins {
         }
 
         return objs;
+    }
+
+    /**
+     * Gets the fully qualified name of the default implementation class.
+     * @param interfaceName the interface name
+     * @return the fully qualified name
+     */
+    private String getDefaultImplementClassFullName(String interfaceName) {
+        String fullName = "Default" + interfaceName + "Impl";
+        return Constants.DEFAULT_IMPL_PACKAGE + "." + fullName;
     }
 
 }

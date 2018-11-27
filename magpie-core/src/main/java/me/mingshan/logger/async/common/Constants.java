@@ -41,9 +41,9 @@ public class Constants {
     public static final long BLOCKING_WAIT_STRAGETY_TIMEOUT_MILLIS = 123L;
 
     /**
-     * The fully qualified name of the default implementation class for exporting log.
+     * The package name of the default implementation class.
      */
-    public static final String DEFAULT_LOG_EXPORT_IMPL = "me.mingshan.logger.async.DefaultLogExportImpl";
+    public static final String DEFAULT_IMPL_PACKAGE = "me.mingshan.logger.async.defaults";
 
     /**
      * {@code SequenceReportingEventHandler} The thresholds for the batch Event.

@@ -11,7 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.logger.async;
+package me.mingshan.logger.async.defaults;
 
 import me.mingshan.logger.async.api.LogExport;
 
