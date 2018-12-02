@@ -13,6 +13,8 @@
  */
 package me.mingshan.magpie;
 
+import java.io.Serializable;
+
 /**
  * Asynchronous startup context
  *
@@ -70,7 +72,7 @@ public class Magpie {
      * @param message the entity of message
      * @param <E> the generics class
      */
-    public <E> void read(E message) {
+    public <E extends Serializable> void read(E message) {
         checkDisruptorStatus();
         getAsyncReader().read(message);
     }

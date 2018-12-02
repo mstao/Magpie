@@ -15,10 +15,7 @@ package me.mingshan.magpie.serialize.jdk;
 
 import me.mingshan.magpie.serialize.Serializer;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 /**
  * Serializer implementation via JDK.
@@ -26,6 +23,7 @@ import java.io.ObjectOutputStream;
  * @author mingshan
  */
 public class JDKSerializer implements Serializer {
+
     @Override
     public <T> byte[] writeObject(T obj) {
         byte[] bytes = null;

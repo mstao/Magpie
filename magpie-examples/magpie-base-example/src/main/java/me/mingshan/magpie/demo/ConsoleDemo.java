@@ -19,7 +19,7 @@ import me.mingshan.magpie.api.Message;
 
 public class ConsoleDemo {
     public static void main(String[] args) {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             Message message = new Message();
             message.setServiceName("aa " + i);
             Magpie.start().read(message);

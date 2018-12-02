@@ -50,7 +50,6 @@
     <disruptor.version>3.4.2</disruptor.version>
     <aspect.version>1.9.2</aspect.version>
     <asm.version>7.0</asm.version>
-    <guava.version>27.0-jre</guava.version>
     <fastjson.version>1.2.51</fastjson.version>
     <caffeine.version>2.6.2</caffeine.version>
     <protostuff.version>1.5.9</protostuff.version>
@@ -60,6 +59,7 @@
     <spring.version>5.1.2.RELEASE</spring.version>
     <javaee-api.version>8.0</javaee-api.version>
     <UserAgentUtils.version>1.21</UserAgentUtils.version>
+    <kryo.version>5.0.0-RC1</kryo.version>
   </properties>
 
   <dependencyManagement>
@@ -94,11 +94,6 @@
         <groupId>org.ow2.asm</groupId>
         <artifactId>asm</artifactId>
         <version>${asm.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${guava.version}</version>
       </dependency>
       <dependency>
         <groupId>com.alibaba</groupId>
@@ -156,18 +151,13 @@
         <artifactId>UserAgentUtils</artifactId>
         <version>${UserAgentUtils.version}</version>
       </dependency>
+      <dependency>
+        <groupId>com.esotericsoftware</groupId>
+        <artifactId>kryo</artifactId>
+        <version>${kryo.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <repositories>
-    <repository>
-      <id>nexus-aliyun</id>
-      <name>nexus-aliyun</name>
-      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-      <releases> <enabled>true</enabled> </releases>
-      <snapshots> <enabled>true</enabled> </snapshots>
-    </repository>
-  </repositories>
 
   <build>
     <plugins>

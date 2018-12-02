@@ -18,6 +18,8 @@ import me.mingshan.magpie.api.Reader;
 import me.mingshan.magpie.serialize.Serializer;
 import me.mingshan.magpie.serialize.SerializerHolder;
 
+import java.io.Serializable;
+
 /**
  * The implementation of logger.
  *

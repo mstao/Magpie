@@ -13,6 +13,8 @@
  */
 package me.mingshan.magpie.api;
 
+import java.io.Serializable;
+
 /**
  * Interface that logger.
  *

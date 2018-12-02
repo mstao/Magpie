@@ -13,7 +13,7 @@
  */
 package me.mingshan.magpie.serialize;
 
-import me.mingshan.magpie.serialize.jdk.JDKSerializer;
+import me.mingshan.magpie.serialize.kryo.KryoSerializer;
 
 /**
  * The serializer holder, gets the implementation of {@link Serializer}.
@@ -21,7 +21,7 @@ import me.mingshan.magpie.serialize.jdk.JDKSerializer;
  * @author mingshan
  */
 public class SerializerHolder {
-    private static final Serializer SERIALIZER = new JDKSerializer();
+    private static final Serializer SERIALIZER = new KryoSerializer();
 
     /**
      * Get the implementation of serializer.

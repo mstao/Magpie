@@ -19,6 +19,8 @@ import io.protostuff.Schema;
 import io.protostuff.runtime.RuntimeSchema;
 import me.mingshan.magpie.serialize.Serializer;
 
+import java.io.Serializable;
+
 /**
  * Serializer implementation via protostuff.
  *
