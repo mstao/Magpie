@@ -27,7 +27,7 @@ for (int i = 0; i < 20; i++) {
     message.setServiceName("aa " + i);
     Magpie.start().read(message);
 }
-// 2. Close the context of asynclogger
+// 2. Close the Magpie
 Magpie.stop();
 ```
 
