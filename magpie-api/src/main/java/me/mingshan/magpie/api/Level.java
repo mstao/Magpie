@@ -11,20 +11,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.api;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * The level enum of log.
+ *
+ * @author mingshan
+ */
+public enum Level {
+    /**
+     * ALL
+     */
+    ALL,
 
-public class ConsoleLogExportImpl implements Export {
+    /**
+     * TRACE
+     */
+    TRACE,
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
-    }
+    /**
+     * DEBUG
+     */
+    DEBUG,
 
+    /**
+     * INFO
+     */
+    INFO,
+
+    /**
+     * WARN
+     */
+    WARN,
+
+    /**
+     * ERROR
+     */
+    ERROR,
+
+    /**
+     * OFF
+     */
+    OFF
 }

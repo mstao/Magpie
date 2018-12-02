@@ -11,20 +11,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.defaults;
 
 import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
 
-public class ConsoleLogExportImpl implements Export {
+import java.util.Arrays;
+
+/**
+ * The default implementation of exporting message.
+ *
+ * @author mingshan
+ */
+public class DefaultExportImpl implements Export {
 
     @Override
     public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
+        System.out.println(Arrays.toString(message));
     }
 
 }

@@ -11,20 +11,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.serialize;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+import me.mingshan.magpie.serialize.jdk.JDKSerializer;
 
-public class ConsoleLogExportImpl implements Export {
+/**
+ * The serializer holder, gets the implementation of {@link Serializer}.
+ *
+ * @author mingshan
+ */
+public class SerializerHolder {
+    private static final Serializer SERIALIZER = new JDKSerializer();
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
+    /**
+     * Get the implementation of serializer.
+     *
+     * @return the {@link Serializer} implementation
+     */
+    public static Serializer serializerImpl() {
+        return SERIALIZER;
     }
-
 }

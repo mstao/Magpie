@@ -11,20 +11,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.api;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * You can export message to db, logstash and etc..
+ *
+ * @author mingshan
+ */
+public interface Export {
 
-public class ConsoleLogExportImpl implements Export {
-
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
-    }
+    /**
+     * Exports message via byte array.
+     *
+     * @param message the byte array of message
+     */
+    void export(byte[] message);
 
 }

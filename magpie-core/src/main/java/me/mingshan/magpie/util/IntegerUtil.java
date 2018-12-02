@@ -11,20 +11,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.util;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * The util of Integer.
+ *
+ * @author mingshan
+ */
+public class IntegerUtil {
+    private static final int BITS_PER_INT = 32;
 
-public class ConsoleLogExportImpl implements Export {
-
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
+    private IntegerUtil() {
     }
 
+    public static int ceilingNextPowerOfTwo(final int x) {
+        return 1 << (BITS_PER_INT - Integer.numberOfLeadingZeros(x - 1));
+    }
 }

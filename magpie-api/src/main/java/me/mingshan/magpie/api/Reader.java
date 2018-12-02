@@ -11,20 +11,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.api;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * Interface that logger.
+ *
+ * @author mingshan
+ */
+public interface Reader {
 
-public class ConsoleLogExportImpl implements Export {
+    /**
+     * Records info via entity.
+     *
+     * @param message the entity of message
+     * @param <E> the generics class
+     */
+    <E> void read(E message);
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
-    }
-
+    /**
+     * Records info via byte array.
+     *
+     * @param message the byte array of message
+     */
+    void read(byte[] message);
 }

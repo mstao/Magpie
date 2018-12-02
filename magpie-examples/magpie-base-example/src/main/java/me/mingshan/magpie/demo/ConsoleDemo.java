@@ -13,19 +13,17 @@
  */
 package me.mingshan.magpie.demo;
 
-import me.mingshan.logger.async.AsyncLogger;
-import me.mingshan.logger.async.AsyncLoggerContext;
-import me.mingshan.logger.async.api.Message;
+import me.mingshan.magpie.AsyncReader;
+import me.mingshan.magpie.Magpie;
+import me.mingshan.magpie.api.Message;
 
 public class ConsoleDemo {
     public static void main(String[] args) {
-        AsyncLoggerContext.start();
-        AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 20; i++) {
             Message message = new Message();
             message.setServiceName("aa " + i);
-            asyncLogger.logMessage(message);
+            Magpie.start().read(message);
         }
-        AsyncLoggerContext.stop();
+        Magpie.stop();
     }
 }

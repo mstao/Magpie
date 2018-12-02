@@ -13,12 +13,12 @@
  */
 package me.mingshan.magpie.demo.web.export;
 
-import me.mingshan.logger.async.api.LogExport;
-import me.mingshan.logger.async.api.Message;
-import me.mingshan.logger.async.serialize.Serializer;
-import me.mingshan.logger.async.serialize.SerializerHolder;
+import me.mingshan.magpie.api.Export;
+import me.mingshan.magpie.api.Message;
+import me.mingshan.magpie.serialize.Serializer;
+import me.mingshan.magpie.serialize.SerializerHolder;
 
-public class ConsoleLogExportImpl implements LogExport {
+public class ConsoleLogExportImpl implements Export {
 
     @Override
     public void export(byte[] message) {

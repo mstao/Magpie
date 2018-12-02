@@ -11,20 +11,42 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.cache;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * The prefix enum for local cache.
+ *
+ * @author mingshan
+ */
+public enum CachePrefix {
 
-public class ConsoleLogExportImpl implements Export {
+    /**
+     * The prefix of `String`
+     */
+    STRING("String#"),
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
+    /**
+     * The prefix of `Integer`
+     */
+    INTEGER("Integer#"),
+
+    /**
+     * The prefix of `Boolean`
+     */
+    BOOLEAN("Boolean#"),
+
+    /**
+     * The prefix of `Long`
+     */
+    LONG("Long#");
+
+    private String value;
+
+    CachePrefix(String value) {
+        this.value = value;
     }
 
+    public String getValue() {
+        return this.value;
+    }
 }

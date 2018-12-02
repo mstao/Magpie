@@ -11,20 +11,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.property;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+/**
+ * Interface that providers the common methods to get configuration.
+ *
+ * @author mingshan
+ * @param <T> the generics class
+ */
+public interface MagpieProperty<T> {
 
-public class ConsoleLogExportImpl implements Export {
+    /**
+     * Gets the value of property.
+     *
+     * @return the value
+     */
+    T get();
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
-    }
-
+    /**
+     * Gets the name of property.
+     *
+     * @return the name
+     */
+    String getName();
 }

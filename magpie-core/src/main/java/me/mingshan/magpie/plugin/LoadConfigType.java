@@ -11,19 +11,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
-
-import me.mingshan.magpie.cache.Cache;
-import me.mingshan.magpie.cache.CaffeineCache;
+package me.mingshan.magpie.plugin;
 
 /**
+ * Supports type of getting configuration.
+ *
  * @author mingshan
  */
-public class CaffeineCacheDemo {
-    public static void main(String[] args) {
-        Cache caffeineCache = CaffeineCache.getInstance();
-        caffeineCache.put("String#", "zzzzzzz");
-        Object cachedValue = caffeineCache.get("String#");
-        System.out.println(cachedValue);
+public enum LoadConfigType {
+
+    /**
+     * Load configuration from system property.
+     */
+    SYSTEM("Load configuration from system property"),
+
+    /**
+     * Load configuration from system property.
+     */
+    FILE("Load configuration from file");
+
+    /**
+     * The description of loading configuration.
+     */
+    private String desc;
+
+    LoadConfigType(String desc) {
+        this.desc = desc;
     }
+
+    private String getDesc() {
+        return this.desc;
+    }
+
 }

@@ -11,32 +11,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.source.c1.message;
-
-import me.mingshan.magpie.api.Level;
+package me.mingshan.magpie.api;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
+/**
+ * Providers a reference entity for logger.
+ *
+ * @author mingshan
+ */
 public class Message implements Serializable {
-    private static final long serialVersionUID = 5692493460944679784L;
-
     private String serviceName;
     private String methodName;
-    private String args;
-    private String result;
+    private Object[] args;
+    private Object result;
     private long executedTime;
     private String message;
     private Level level;
     private Throwable e;
-    private BrowserMessage browserMessage;
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
 
     public String getMethodName() {
         return methodName;
@@ -46,19 +39,27 @@ public class Message implements Serializable {
         this.methodName = methodName;
     }
 
-    public String getArgs() {
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public Object[] getArgs() {
         return args;
     }
 
-    public void setArgs(String args) {
+    public void setArgs(Object[] args) {
         this.args = args;
     }
 
-    public String getResult() {
+    public Object getResult() {
         return result;
     }
 
-    public void setResult(String result) {
+    public void setResult(Object result) {
         this.result = result;
     }
 
@@ -94,26 +95,17 @@ public class Message implements Serializable {
         this.e = e;
     }
 
-    public BrowserMessage getBrowserMessage() {
-        return browserMessage;
-    }
-
-    public void setBrowserMessage(BrowserMessage browserMessage) {
-        this.browserMessage = browserMessage;
-    }
-
     @Override
     public String toString() {
         return "Message{" +
-                "serviceName='" + serviceName + '\'' +
-                ", methodName='" + methodName + '\'' +
-                ", args='" + args + '\'' +
-                ", result='" + result + '\'' +
+                "methodName='" + methodName + '\'' +
+                ", serviceName='" + serviceName + '\'' +
+                ", args=" + Arrays.toString(args) +
+                ", result=" + result +
                 ", executedTime=" + executedTime +
                 ", message='" + message + '\'' +
                 ", level=" + level +
                 ", e=" + e +
-                ", browserMessage=" + browserMessage +
                 '}';
     }
 }

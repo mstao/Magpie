@@ -11,20 +11,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.mingshan.magpie.demo;
+package me.mingshan.magpie.util;
 
-import me.mingshan.magpie.api.Export;
-import me.mingshan.magpie.api.Message;
-import me.mingshan.magpie.serialize.Serializer;
-import me.mingshan.magpie.serialize.SerializerHolder;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
-public class ConsoleLogExportImpl implements Export {
+/**
+ * The util of exception.
+ *
+ * @author mingshan
+ */
+public class ExceptionUtil {
 
-    @Override
-    public void export(byte[] message) {
-        Serializer serializer = SerializerHolder.serializerImpl();
-        System.out.println(serializer.readObject(message, Message.class));
-        System.out.println(message);
+    /**
+     * Get character string of full stack trace via {@code Throwable}.
+     *
+     * @return the character string
+     */
+    public static String getFullStackTrace(Throwable t) {
+        StringWriter sw = new StringWriter();
+        t.printStackTrace(new PrintWriter(sw, true));
+        return sw.getBuffer().toString();
     }
-
 }

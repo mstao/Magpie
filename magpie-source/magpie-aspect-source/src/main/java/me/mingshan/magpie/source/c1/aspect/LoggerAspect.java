@@ -17,9 +17,9 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 import eu.bitwalker.useragentutils.Version;
-import me.mingshan.logger.async.AsyncLogger;
-import me.mingshan.logger.async.AsyncLoggerContext;
-import me.mingshan.logger.async.api.Level;
+import me.mingshan.magpie.AsyncReader;
+import me.mingshan.magpie.Magpie;
+import me.mingshan.magpie.api.Level;
 
 import me.mingshan.magpie.source.c1.annotation.Log;
 import me.mingshan.magpie.source.c1.enums.LogType;
@@ -201,13 +201,6 @@ public class LoggerAspect {
     }
 
     private void writeMessage(Message message) {
-        AsyncLoggerContext.start();
-        AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
-
-        try {
-            asyncLogger.logMessage(message);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+        Magpie.start().read(message);
     }
 }
