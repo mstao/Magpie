@@ -21,23 +21,19 @@
 ### How to use?
 
 ```
-// 1. Start the context of asynclogger
-AsyncLoggerContext.start();
-// 2. Get asynclogger
-AsyncLogger asyncLogger = AsyncLoggerContext.getAsyncLogger();
-// 3. Record messages
-for (int i = 0; i < 2; i++) {
+// 1. Start the Magpie and Record messages
+for (int i = 0; i < 20; i++) {
     Message message = new Message();
     message.setServiceName("aa " + i);
-    asyncLogger.logMessage(message);
+    Magpie.start().read(message);
 }
-// 4. Close the context of asynclogger
-AsyncLoggerContext.stop();
+// 2. Close the context of asynclogger
+Magpie.stop();
 ```
 
 ### Documents
 
-See [me](http://mingshan.me/asynchronous-logger-component/)
+See [me](http://mingshan.me/Magpie/)
 
 ### Compiling
 
