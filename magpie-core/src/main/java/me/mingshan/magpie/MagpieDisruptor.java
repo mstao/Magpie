@@ -49,7 +49,7 @@ public class MagpieDisruptor {
 
             @Override
             public Thread newThread(Runnable r) {
-                return new Thread(r, "LoggerAsyncTask #" + mCount.getAndIncrement());
+                return new Thread(r, "MagpieAsyncTask #" + mCount.getAndIncrement());
             }
         };
 
