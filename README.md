@@ -2,9 +2,7 @@
 
 > Magpie - The bridge of data connection..
 
-[![Build Status](https://travis-ci.org/mstao/Magpie.svg?branch=master)](https://travis-ci.org/mstao/Magpie) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmstao%2FMagpie.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmstao%2FMagpie?ref=badge_shield)
-
-[![Join the chat at https://gitter.im/asynchronous-logger-component/Lobby](https://badges.gitter.im/asynchronous-logger-component/Lobby.svg)](https://gitter.im/asynchronous-logger-component/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/mstao/Magpie.svg?branch=master)](https://travis-ci.org/mstao/Magpie) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmstao%2FMagpie.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmstao%2FMagpie?ref=badge_shield) [![Join the chat at https://gitter.im/asynchronous-logger-component/Lobby](https://badges.gitter.im/asynchronous-logger-component/Lobby.svg)](https://gitter.im/asynchronous-logger-component/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Features
 
