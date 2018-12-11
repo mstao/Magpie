@@ -33,7 +33,7 @@ Magpie.stop();
 
 ### Documents
 
-See [me](http://mingshan.me/Magpie/)
+See [me](https://mingshan.fun/Magpie/)
 
 ### Compiling
 
