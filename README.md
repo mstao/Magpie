@@ -47,7 +47,4 @@ mvn clean package -DskipTests
 
 ## License
 
-Apache License 2.0
-
-
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmstao%2FMagpie.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmstao%2FMagpie?ref=badge_large)
