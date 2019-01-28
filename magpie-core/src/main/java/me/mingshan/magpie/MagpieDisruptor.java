@@ -82,4 +82,18 @@ public class MagpieDisruptor {
             return false;
         }
     }
+
+    /**
+     * Checks the status of disruptor.
+     *
+     * @return returns {@code true}, the disruptor is started, returns {@code false},
+     * the disruptor
+     */
+    public boolean checkDisruptorStatus() {
+        if (disruptor == null) {
+            return false;
+        }
+
+        return true;
+    }
 }

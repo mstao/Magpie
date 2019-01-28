@@ -53,7 +53,9 @@ public class Magpie {
      * @return the Magpie
      */
     public static Magpie start() {
-        MAGPIE_DISRUPTOR.start();
+        if (!MAGPIE_DISRUPTOR.checkDisruptorStatus()) {
+            MAGPIE_DISRUPTOR.start();
+        }
         return Magpie.getInstance();
     }
 
@@ -90,7 +92,7 @@ public class Magpie {
      * throw RuntimeException.
      */
     private void checkDisruptorStatus() {
-        if (MAGPIE_DISRUPTOR.getDisruptor() == null) {
+        if (!MAGPIE_DISRUPTOR.checkDisruptorStatus()) {
             throw new RuntimeException("Disruptor is not run.");
         }
     }

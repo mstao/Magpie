@@ -19,11 +19,16 @@ import me.mingshan.magpie.api.Message;
 
 public class ConsoleDemo {
     public static void main(String[] args) {
+        Magpie magpie = Magpie.start();
         for (int i = 0; i < 10; i++) {
             Message message = new Message();
             message.setServiceName("aa " + i);
-            Magpie.start().read(message);
+            magpie.read(message);
         }
-        Magpie.stop();
+        magpie.stop();
+
+        Message message = new Message();
+        message.setServiceName("aa hhh");
+        magpie.read(message);
     }
 }
