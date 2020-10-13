@@ -46,7 +46,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <disruptor.version>3.4.2</disruptor.version>
     <aspect.version>1.9.2</aspect.version>
     <asm.version>7.0</asm.version>
