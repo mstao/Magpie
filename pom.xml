@@ -50,7 +50,7 @@
     <disruptor.version>3.4.2</disruptor.version>
     <aspect.version>1.9.2</aspect.version>
     <asm.version>7.0</asm.version>
-    <fastjson.version>1.2.51</fastjson.version>
+    <fastjson.version>1.2.83</fastjson.version>
     <caffeine.version>2.6.2</caffeine.version>
     <protostuff.version>1.5.9</protostuff.version>
     <netty.version>4.1.42.Final</netty.version>
